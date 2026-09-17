@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIPJOK — Pembelajaran PJOK SMP</title>
+<meta name="theme-color" content="#1B4F8F">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+  :root{
+    --matras:#1B4F8F; --matras-tua:#0E2A4E; --kapur:#EEF4FB;
+    --emas:#FFC53D; --bata:#E8623C; --abu:#5E6E85; --garis:#D3E1F0;
+    --hijau:#1E8E63; --merah:#D8453C; --tepi:#123C6E;
+    --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+    --teks:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    --aksen:var(--emas); --aksen-tepi:#C99400; --radius:20px;
+  }
+  body.guru{ --aksen:var(--bata); --aksen-tepi:#B4431F; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--kapur);
+    background-image:radial-gradient(circle 360px at 90% -80px,rgba(27,79,143,.18),rgba(27,79,143,0) 70%);
+    background-repeat:no-repeat;background-attachment:fixed;
+    color:var(--matras-tua);font-family:var(--teks);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;
+  }
+  h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.22;margin:0 0 .4em}
+  p{margin:0 0 .9em}
+  a{color:var(--matras)}
+  .bungkus{max-width:780px;margin:0 auto;padding:0 18px 120px}
+
+  header.matras{
+    background:var(--matras);
+    background-image:repeating-linear-gradient(90deg,transparent 0 43px,rgba(255,255,255,.07) 43px 46px);
+    color:#fff;padding:18px 0;border-bottom:7px solid var(--aksen);
+    border-radius:0 0 26px 26px;transition:border-color .2s ease;
+  }
+  .kepala-isi{max-width:780px;margin:0 auto;padding:0 18px;display:flex;align-items:center;gap:13px}
+  .peluit{width:48px;height:48px;border-radius:16px;background:var(--aksen);flex:none;display:grid;place-items:center;transition:background .2s ease}
+  .judul-app{font-family:var(--display);font-size:1.5rem;line-height:1.1}
+  .judul-app small{display:block;font-family:var(--teks);font-size:.74rem;font-weight:600;opacity:.8}
+  .lencana{margin-left:auto;text-align:right;font-size:.72rem;font-weight:700;background:rgba(255,255,255,.16);padding:7px 12px;border-radius:999px;max-width:46%}
+  .lencana span{display:block;font-weight:600;opacity:.85;font-size:.68rem}
+
+  .kartu{background:#fff;border:1px solid var(--garis);border-radius:var(--radius);padding:20px;margin:16px 0;box-shadow:0 2px 0 rgba(14,42,78,.05)}
+  .kartu h2{font-size:1.3rem}
+  .kartu h3{font-size:1.08rem}
+  .redup{color:var(--abu)}
+  .mini{font-size:.82rem;color:var(--abu)}
+  .sorot{background:linear-gradient(160deg,var(--matras),var(--matras-tua));color:#fff;border:0}
+  .sorot h2{color:#fff}
+  .sorot p{color:#c8dcf3}
+  .emas{color:var(--emas)}
+
+  .tbl{font:inherit;font-family:var(--display);font-size:1.02rem;font-weight:600;background:var(--matras);color:#fff;
+       border:0;border-bottom:4px solid var(--tepi);padding:13px 22px;border-radius:15px;cursor:pointer;margin:14px 8px 0 0;transition:transform .08s ease}
+  .tbl:active{transform:translateY(2px);border-bottom-width:2px}
+  .tbl:disabled{opacity:.55;cursor:progress}
+  .tbl.aksen{background:var(--aksen);color:#3A2A00;border-bottom-color:var(--aksen-tepi)}
+  body.guru .tbl.aksen{color:#fff}
+  .tbl.sunyi{background:#fff;color:var(--matras);border:2px solid var(--garis);border-bottom-width:4px}
+  .tbl.kecil{font-size:.86rem;padding:9px 15px;border-radius:12px}
+  .baris{display:flex;flex-wrap:wrap;gap:0 4px;align-items:center}
+
+  label{display:block;font-weight:700;font-size:.86rem;margin:16px 0 6px}
+  input[type=text],select,textarea{width:100%;font:inherit;font-size:1rem;color:var(--matras-tua);background:#fff;
+    padding:12px 14px;border:2px solid var(--garis);border-radius:14px}
+  textarea{min-height:92px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:0;border-color:var(--matras)}
+  input[type=file]{font:inherit;font-size:.86rem;width:100%}
+  .kode{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;word-break:break-all;
+        background:var(--kapur);border:1px solid var(--garis);border-radius:12px;padding:11px 13px;margin-top:8px}
+  textarea.kode{white-space:pre;word-break:normal}
+
+  .pesan{margin-top:14px;padding:13px 15px;border-radius:14px;font-size:.92rem;display:none}
+  .pesan.ok{display:block;background:#E3F6EC;border:1px solid #A6DFC3;color:#0F5638}
+  .pesan.gagal{display:block;background:#FDEAE8;border:1px solid #F2BDB7;color:#8D2720}
+  .pesan.info{display:block;background:#EAF1FB;border:1px solid #C3D8F2;color:#173E6E}
+
+  /* ---- pemilih semester ---- */
+  .tab{display:flex;gap:8px;margin:4px 0 2px}
+  .tab button{flex:1;font:inherit;font-family:var(--display);font-size:.95rem;cursor:pointer;
+    background:#fff;border:2px solid var(--garis);border-bottom-width:4px;border-radius:14px;padding:11px 8px;color:var(--abu)}
+  .tab button[aria-pressed="true"]{background:var(--matras);color:#fff;border-color:var(--tepi)}
+
+  /* ---- kartu materi ---- */
+  .rak{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .unit{display:flex;gap:13px;align-items:flex-start;text-align:left;width:100%;
+    font:inherit;cursor:pointer;background:#fff;border:1px solid var(--garis);border-bottom:4px solid var(--garis);
+    border-radius:18px;padding:15px;color:var(--matras-tua)}
+  .unit:active{transform:translateY(2px)}
+  .unit .lambang{font-size:1.7rem;line-height:1;flex:none}
+  .unit b{display:block;font-family:var(--display);font-size:1.02rem;font-weight:600;margin-bottom:2px}
+  .unit span{font-size:.78rem;color:var(--abu)}
+
+  .galeri{display:grid;gap:10px;margin:0 0 14px}
+  .galeri img{width:100%;height:auto;border-radius:16px;border:1px solid var(--garis);display:block}
+  .kosong{background:var(--kapur);border:2px dashed var(--garis);border-radius:16px;padding:24px 16px;text-align:center;color:var(--abu);font-size:.86rem}
+  .bingkai{position:relative;padding-top:56.25%;background:#0E2A4E;border-radius:16px;overflow:hidden;margin-bottom:12px}
+  .bingkai iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .catatan-guru{background:#FFF8E4;border:1px solid #F2DFAE;border-radius:15px;padding:14px 16px;margin:4px 0 14px;white-space:pre-wrap;font-size:.95rem}
+  .catatan-guru b{display:block;font-family:var(--display);font-size:.78rem;color:#8A6A00;margin-bottom:3px}
+  .awas{background:#FDEFEA;border:1px solid #F5CDBE;border-radius:15px;padding:14px 16px;margin:8px 0 0}
+  .awas b{display:block;font-family:var(--display);margin-bottom:3px;color:#9C3A18}
+  .cap{display:inline-block;font-family:var(--display);font-size:.76rem;background:var(--kapur);color:var(--matras);padding:5px 12px;border-radius:999px;margin-bottom:8px}
+  ol,ul{margin:.2em 0 1em;padding-left:1.3em}
+  li{margin-bottom:.45em}
+
+  .soal{border-top:1px solid var(--garis);padding-top:16px;margin-top:18px}
+  .soal:first-of-type{border-top:0;margin-top:6px}
+  .soal>p{font-weight:700;margin-bottom:.6em}
+  .pil{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;margin-bottom:6px;border:2px solid var(--garis);border-radius:13px;cursor:pointer;font-size:.96rem}
+  .pil:has(input:checked){border-color:var(--matras);background:var(--kapur)}
+  .pil input{margin-top:5px;flex:none;accent-color:var(--matras);width:18px;height:18px}
+  .cek{display:flex;gap:11px;align-items:center;padding:9px 0;cursor:pointer;font-size:.95rem}
+  .cek input{accent-color:var(--hijau);width:20px;height:20px}
+
+  .gulir{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:8px}
+  table{border-collapse:collapse;width:100%;font-size:.84rem;min-width:600px}
+  th,td{text-align:left;padding:10px 11px;border-bottom:1px solid var(--garis);vertical-align:top}
+  th{background:var(--kapur);font-family:var(--display);font-size:.78rem;color:var(--matras)}
+  .angka{font-family:var(--display);font-size:1.05rem;color:var(--matras)}
+
+  .lampu{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;padding:7px 13px;border-radius:999px;background:var(--kapur);border:1px solid var(--garis);color:var(--abu)}
+  .lampu i{width:10px;height:10px;border-radius:50%;background:#B9C4D4;display:block}
+  .lampu.hidup i{background:var(--hijau)}
+  .lampu.mati i{background:var(--merah)}
+
+  nav.bawah{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--garis);
+    display:flex;justify-content:center;gap:2px;padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -3px 14px rgba(14,42,78,.07)}
+  nav.bawah button{flex:1;max-width:120px;background:none;border:0;cursor:pointer;font:inherit;font-size:.7rem;font-weight:700;color:var(--abu);
+    display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px;border-radius:12px}
+  nav.bawah button svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  nav.bawah button[aria-current="true"]{color:var(--matras);background:var(--kapur)}
+
+  .peran{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:6px}
+  .peran button{font:inherit;font-family:var(--display);font-size:1.05rem;cursor:pointer;background:#fff;
+    border:2px solid var(--garis);border-bottom-width:5px;border-radius:18px;padding:20px 10px;
+    display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--matras-tua)}
+  .peran button svg{width:36px;height:36px;stroke:var(--matras);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .peran button[data-peran="guru"] svg{stroke:var(--bata)}
+  .langkah{counter-reset:l;padding:0;margin:10px 0 0;list-style:none}
+  .langkah li{position:relative;padding-left:38px;margin-bottom:13px}
+  .langkah li::before{counter-increment:l;content:counter(l);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;
+    background:var(--matras);color:#fff;font-family:var(--display);font-size:.85rem;display:grid;place-items:center}
+
+  @media print{ nav.bawah,header.matras,.tbl,.nocetak{display:none!important} body{background:#fff} .kartu{border:0;box-shadow:none;padding:0} }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ================= LAYAR MULAI ================= -->
+<div id="layar-mulai">
+  <header class="matras">
+    <div class="kepala-isi">
+      <div class="peluit">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0E2A4E" stroke-width="2.3" stroke-linecap="round">
+          <circle cx="12" cy="5" r="2.3" fill="#0E2A4E" stroke="none"/><path d="M12 8.4v6.1M12 14.5l-3.6 5M12 14.5l3.6 5M5.4 11h13.2"/>
+        </svg>
+      </div>
+      <div class="judul-app">SIPJOK<small>Pembelajaran PJOK SMP</small></div>
+    </div>
+  </header>
+
+  <div class="bungkus">
+    <div class="kartu sorot">
+      <h2>Satu aplikasi untuk seluruh materi PJOK</h2>
+      <p>Dua belas unit pembelajaran semester 1 dan 2 — permainan bola besar dan kecil, atletik, beladiri, kebugaran, senam, gerak berirama, aktivitas air, dan pola hidup sehat. Lengkap dengan absensi dan LKPD yang langsung masuk ke spreadsheet guru.</p>
+    </div>
+
+    <div class="kartu">
+      <h2>Masuk sebagai</h2>
+      <div class="peran">
+        <button data-peran="siswa">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.6"/><path d="M4.5 20.5c.6-4 3.8-6.2 7.5-6.2s6.9 2.2 7.5 6.2"/></svg>Siswa
+        </button>
+        <button data-peran="guru">
+          <svg viewBox="0 0 24 24"><path d="M3 6.5h18v11H3z"/><path d="M7 21h10M12 17.5V21M8 10.5h5M8 13.5h8"/></svg>Guru
+        </button>
+      </div>
+    </div>
+
+    <div class="kartu" id="masuk-siswa" hidden>
+      <h2>Masuk kelas</h2>
+      <p class="mini">Buka tautan yang dibagikan guru agar alamat server dan kode kelas terisi sendiri.</p>
+      <label for="s-server">Alamat server</label>
+      <input type="text" id="s-server" placeholder="https://script.google.com/macros/s/..../exec">
+      <label for="s-kode">Kode kelas</label>
+      <input type="text" id="s-kode" placeholder="Contoh: 8A2026">
+      <label for="s-nama">Nama lengkap</label>
+      <input type="text" id="s-nama" placeholder="Nama lengkapmu" autocomplete="name">
+      <label for="s-kelas">Kelas</label>
+      <input type="text" id="s-kelas" placeholder="Contoh: VIII A">
+      <button class="tbl" id="s-masuk">Masuk</button>
+      <div class="pesan" id="s-pesan" role="status"></div>
+    </div>
+
+    <div class="kartu" id="masuk-guru" hidden>
+      <h2>Masuk guru</h2>
+      <p class="mini">Sudah punya kode kelas? Isi ketiganya lalu tekan Masuk. Belum punya? Ikuti pemasangan di bawah.</p>
+      <label for="g-server">Alamat server</label>
+      <input type="text" id="g-server" placeholder="https://script.google.com/macros/s/..../exec">
+      <label for="g-kode">Kode kelas</label>
+      <input type="text" id="g-kode" placeholder="Contoh: 8A2026">
+      <label for="g-sandi">Kode guru</label>
+      <input type="text" id="g-sandi" placeholder="Kode rahasia guru">
+      <div class="baris">
+        <button class="tbl" id="g-masuk">Masuk</button>
+        <button class="tbl sunyi" id="g-daftar">Daftarkan kode baru</button>
+      </div>
+      <div class="pesan" id="g-pesan" role="status"></div>
+    </div>
+
+    <div class="kartu" id="kartu-pasang" hidden>
+      <h2>Pemasangan pertama kali</h2>
+      <ol class="langkah">
+        <li>Buat spreadsheet baru di Google Sheets, lalu buka <b>Ekstensi → Apps Script</b>.</li>
+        <li>Hapus isi bawaannya, tekan tombol di bawah untuk menyalin kode, tempel di sana, lalu simpan.</li>
+        <li>Klik <b>Terapkan → Deployment baru → Aplikasi web</b>. Setel <i>Jalankan sebagai</i> = <b>Saya</b>, <i>Siapa yang memiliki akses</i> = <b>Siapa saja</b>.</li>
+        <li>Salin alamat yang berakhiran <b>/exec</b>, tempel di kolom Alamat server di atas.</li>
+        <li>Tulis kode kelas dan kode guru pilihan Anda, lalu tekan <b>Daftarkan kode baru</b>.</li>
+      </ol>
+      <button class="tbl aksen" id="salin-gs">Salin kode Apps Script</button>
+      <div class="pesan" id="gs-pesan" role="status"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APLIKASI ================= -->
+<div id="layar-app" hidden>
+  <header class="matras">
+    <div class="kepala-isi">
+      <div class="peluit">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0E2A4E" stroke-width="2.3" stroke-linecap="round">
+          <circle cx="12" cy="5" r="2.3" fill="#0E2A4E" stroke="none"/><path d="M12 8.4v6.1M12 14.5l-3.6 5M12 14.5l3.6 5M5.4 11h13.2"/>
+        </svg>
+      </div>
+      <div class="judul-app">SIPJOK<small>Pembelajaran PJOK SMP</small></div>
+      <div class="lencana" id="lencana"></div>
+    </div>
+  </header>
+
+  <div class="bungkus">
+
+    <section id="hal-beranda">
+      <div class="kartu" id="papan" hidden>
+        <h3>📣 Pengumuman guru</h3>
+        <div id="isi-papan" style="white-space:pre-wrap"></div>
+      </div>
+      <div class="kartu sorot">
+        <h2>Selamat datang di <span class="emas">SIPJOK</span></h2>
+        <p id="sapa">Pilih materi yang sedang dipelajari, tonton videonya, lalu isi absensi dan LKPD.</p>
+      </div>
+      <div class="kartu">
+        <h2>Materi hari ini</h2>
+        <p class="mini">Ketuk salah satu untuk membuka materinya.</p>
+        <div class="rak" id="rak-cepat"></div>
+      </div>
+      <div class="kartu">
+        <h3>Aturan dasar setiap praktik</h3>
+        <ul>
+          <li>Selalu berdoa dan melakukan pemanasan sebelum bergerak.</li>
+          <li>Gunakan pakaian dan sepatu olahraga yang sesuai.</li>
+          <li>Ikuti instruksi guru, jangan mencoba gerakan berbahaya sendirian.</li>
+          <li>Hargai teman: tidak mengejek, tidak bermain kasar.</li>
+          <li>Lakukan pendinginan dan minum air putih setelah selesai.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="hal-materi" hidden>
+      <div class="kartu" id="daftar-materi">
+        <h2>Daftar materi</h2>
+        <div class="tab" id="tab-sem"></div>
+        <p class="mini" id="ket-sem"></p>
+        <div class="rak" id="rak-materi"></div>
+      </div>
+      <div id="detail-materi" hidden></div>
+    </section>
+
+    <section id="hal-absensi" hidden>
+      <div class="kartu">
+        <h2>Absensi kehadiran</h2>
+        <p class="mini">Isi di awal pelajaran, sesuai materi yang diajarkan hari ini.</p>
+        <label for="ab-materi">Materi hari ini</label>
+        <select id="ab-materi"></select>
+        <label for="ab-ket">Keterangan</label>
+        <select id="ab-ket">
+          <option value="Hadir">Hadir</option>
+          <option value="Hadir - tidak praktik">Hadir, tidak ikut praktik</option>
+          <option value="Sakit">Sakit</option>
+          <option value="Izin">Izin</option>
+        </select>
+        <label for="ab-catatan">Catatan untuk guru (boleh dikosongkan)</label>
+        <input type="text" id="ab-catatan" placeholder="Misalnya: pergelangan tangan sedang cedera">
+        <button class="tbl aksen" id="ab-kirim">Kirim absensi</button>
+        <div class="pesan" id="ab-pesan" role="status"></div>
+      </div>
+    </section>
+
+    <section id="hal-lkpd" hidden>
+      <div class="kartu">
+        <h2>LKPD</h2>
+        <p class="mini">Lembar Kerja Peserta Didik. Pilih materinya, kerjakan seluruh bagian, lalu kirim. Bagian A dinilai otomatis.</p>
+        <label for="lk-materi">Materi</label>
+        <select id="lk-materi"></select>
+      </div>
+      <div id="isi-lkpd"></div>
+    </section>
+
+    <section id="hal-konten" hidden>
+      <div class="kartu">
+        <h2>Kelola materi</h2>
+        <p class="mini">Pilih materi, lengkapi gambar dan videonya, lalu terbitkan. Perangkat murid menariknya saat aplikasi dibuka.</p>
+        <label for="k-pengumuman">Pengumuman di halaman Beranda</label>
+        <textarea id="k-pengumuman" placeholder="Contoh: Pekan ini praktik bola voli di lapangan belakang."></textarea>
+        <label for="k-materi">Materi yang dikelola</label>
+        <select id="k-materi"></select>
+      </div>
+      <div id="atur-konten"></div>
+      <div class="kartu">
+        <button class="tbl aksen" id="terbitkan">Terbitkan materi ini</button>
+        <button class="tbl sunyi" id="tarik-konten">Tarik dari server</button>
+        <div class="pesan" id="konten-pesan" role="status"></div>
+      </div>
+    </section>
+
+    <section id="hal-rekap" hidden>
+      <div class="kartu">
+        <h2>Saring rekap</h2>
+        <label for="r-materi">Materi</label>
+        <select id="r-materi"></select>
+      </div>
+      <div class="kartu">
+        <h2>Rekap absensi</h2>
+        <div class="baris nocetak">
+          <button class="tbl sunyi kecil" data-muat="absen">Muat data</button>
+          <button class="tbl sunyi kecil" data-unduh="absen">Unduh CSV</button>
+        </div>
+        <div id="tabel-absen" class="gulir"></div>
+      </div>
+      <div class="kartu">
+        <h2>Nilai LKPD</h2>
+        <div class="baris nocetak">
+          <button class="tbl sunyi kecil" data-muat="lkpd">Muat data</button>
+          <button class="tbl sunyi kecil" data-unduh="lkpd">Unduh CSV</button>
+        </div>
+        <div id="tabel-lkpd" class="gulir"></div>
+      </div>
+    </section>
+
+    <section id="hal-atur" hidden>
+      <div class="kartu">
+        <h2>Sambungan</h2>
+        <p><span class="lampu" id="lampu"><i></i><span id="lampu-teks">Belum diperiksa</span></span></p>
+        <div class="kode" id="info-sambungan"></div>
+        <button class="tbl sunyi kecil" id="uji">Uji sambungan</button>
+      </div>
+      <div class="kartu">
+        <h2>Tautan untuk murid</h2>
+        <p class="mini">Bagikan ke grup kelas. Murid yang membukanya langsung tersambung dan tidak melihat menu guru.</p>
+        <div id="isi-tautan"></div>
+      </div>
+      <div class="kartu">
+        <h2>Kode Apps Script</h2>
+        <p class="mini">Salin lagi bila ingin memperbarui skrip. Setelah menempel kode baru, buat versi baru lewat Terapkan → Kelola deployment.</p>
+        <button class="tbl aksen" id="salin-gs2">Salin kode Apps Script</button>
+        <div class="pesan" id="gs-pesan2" role="status"></div>
+      </div>
+      <div class="kartu">
+        <h2>Keluar</h2>
+        <p class="mini">Menghapus kode dan identitas di perangkat ini. Data di spreadsheet tidak terhapus.</p>
+        <button class="tbl sunyi" id="keluar">Keluar dari akun</button>
+      </div>
+    </section>
+
+  </div>
+  <nav class="bawah" id="nav"></nav>
+</div>
+<script>
+/* ======================================================================
+   SIPJOK 2 — kurikulum PJOK SMP (Fase D), semester 1 dan 2
+   ====================================================================== */
+
+const MATERI = [
+
+/* ================== SEMESTER 1 ================== */
+{ id:"sepakbola", sem:1, nama:"Sepak Bola", rumpun:"Permainan Bola Besar", ikon:"⚽",
+  ringkas:"Permainan beregu yang dimainkan sebelas lawan sebelas dengan tujuan memasukkan bola ke gawang lawan dan mempertahankan gawang sendiri. Menekankan kerja sama, penguasaan bola, dan pengambilan keputusan saat bertanding.",
+  tujuan:"Murid mampu mempraktikkan gerak spesifik menendang, menghentikan, dan menggiring bola, serta menerapkannya dalam permainan sederhana dengan menjunjung sportivitas.",
+  poin:[
+    "Menendang dengan kaki bagian dalam — untuk umpan pendek dan akurat. Kaki tumpu di samping bola, pergelangan kaki dikunci, perkenaan di tengah bola.",
+    "Menendang dengan punggung kaki — untuk tendangan keras dan jarak jauh. Badan sedikit condong ke depan, ujung kaki ditekuk ke bawah.",
+    "Menghentikan bola (controlling) — dengan kaki bagian dalam, telapak kaki, paha, atau dada. Bagian penahan ditarik mengikuti arah bola agar tidak memantul jauh.",
+    "Menggiring bola (dribbling) — bola didorong dekat kaki, pandangan bergantian antara bola dan lapangan, langkah pendek-pendek.",
+    "Menyundul bola (heading) — perkenaan di dahi, mata tetap terbuka, dorongan dari otot leher dan badan.",
+    "Taktik dasar — mencari ruang kosong, memberi umpan pada teman yang tidak dijaga, serta menjaga lawan saat kehilangan bola."],
+  aman:"Gunakan sepatu yang sesuai, jangan bermain dengan kaus kaki di lapangan keras. Hindari tekel dari belakang. Lakukan pemanasan pada pergelangan kaki dan paha belakang sebelum bermain.",
+  cari:"teknik dasar sepak bola pembelajaran SMP",
+  soal:[
+    {t:"Bagian kaki yang paling tepat untuk umpan pendek dan akurat adalah…", p:["Punggung kaki","Kaki bagian dalam","Tumit","Ujung jari kaki"], k:1},
+    {t:"Saat menghentikan bola, bagian penahan sebaiknya…", p:["Dikeraskan agar bola memantul","Ditarik mengikuti arah datangnya bola","Diam tidak bergerak","Didorong ke arah bola"], k:1},
+    {t:"Perkenaan yang benar saat menyundul bola adalah pada…", p:["Ubun-ubun","Dahi","Belakang kepala","Pelipis"], k:1},
+    {t:"Saat menggiring bola, bola sebaiknya…", p:["Ditendang sejauh mungkin ke depan","Didorong tetap dekat dengan kaki","Diangkat dengan paha","Dipegang lalu dilempar"], k:1},
+    {t:"Jumlah pemain satu regu sepak bola di lapangan adalah…", p:["9 orang","10 orang","11 orang","12 orang"], k:2}],
+  uraian:[
+    "Jelaskan perbedaan menendang dengan kaki bagian dalam dan dengan punggung kaki, beserta kapan masing-masing digunakan.",
+    "Temanmu sering kehilangan bola saat menggiring. Menurutmu apa penyebabnya dan bagaimana cara memperbaikinya?"] },
+
+{ id:"voli", sem:1, nama:"Bola Voli", rumpun:"Permainan Bola Besar", ikon:"🏐",
+  ringkas:"Permainan beregu enam lawan enam yang dipisahkan net. Bola dimainkan maksimal tiga kali sentuhan dalam satu regu sebelum diseberangkan, dengan tujuan menjatuhkan bola di daerah lawan.",
+  tujuan:"Murid mampu mempraktikkan passing bawah, passing atas, dan servis, serta menerapkannya dalam permainan sederhana secara beregu.",
+  poin:[
+    "Passing bawah — kedua lengan dirapatkan lurus, perkenaan pada pergelangan tangan bagian dalam, dorongan berasal dari lutut yang diluruskan, bukan dari ayunan lengan.",
+    "Passing atas — jari-jari membentuk mangkuk di atas dahi, siku ditekuk ke samping, bola didorong dengan pergelangan tangan dan luruskan lutut.",
+    "Servis bawah — bola dipegang setinggi pinggang, lengan pemukul diayun ke belakang lalu memukul bagian bawah bola dengan telapak tangan.",
+    "Servis atas — bola dilambungkan di atas kepala, badan membusur, lengan memukul bola dengan telapak tangan terbuka.",
+    "Smash — awalan dua sampai tiga langkah, tolakan dua kaki, memukul bola pada titik tertinggi.",
+    "Blok — melompat di dekat net dengan kedua lengan lurus ke atas untuk membendung serangan lawan."],
+  aman:"Jangan memukul bola dengan jari yang tegang lurus karena rawan cedera jari. Pastikan tiang net terpasang kokoh. Lakukan peregangan pergelangan tangan dan bahu.",
+  cari:"teknik dasar bola voli passing bawah atas SMP",
+  soal:[
+    {t:"Perkenaan bola pada passing bawah yang benar terletak di…", p:["Telapak tangan","Pergelangan tangan bagian dalam","Siku","Ujung jari"], k:1},
+    {t:"Sumber dorongan utama pada passing bawah berasal dari…", p:["Ayunan lengan yang kuat","Luruskan lutut","Putaran pinggang","Lompatan"], k:1},
+    {t:"Posisi jari saat melakukan passing atas adalah…", p:["Rapat lurus","Membentuk mangkuk di atas dahi","Mengepal","Menyilang"], k:1},
+    {t:"Jumlah maksimal sentuhan satu regu sebelum bola diseberangkan adalah…", p:["Dua kali","Tiga kali","Empat kali","Bebas"], k:1},
+    {t:"Gerakan membendung serangan lawan di dekat net disebut…", p:["Smash","Servis","Blok","Passing"], k:2}],
+  uraian:[
+    "Tuliskan urutan gerakan passing bawah mulai dari sikap awal sampai sikap akhir.",
+    "Mengapa passing atas lebih tepat digunakan untuk mengumpan kepada smasher dibanding passing bawah?"] },
+
+{ id:"basket", sem:1, nama:"Bola Basket", rumpun:"Permainan Bola Besar", ikon:"🏀",
+  ringkas:"Permainan beregu lima lawan lima yang bertujuan memasukkan bola ke keranjang lawan. Bola dimainkan dengan dipantulkan, dioper, dan ditembakkan, menuntut kelincahan serta koordinasi tangan dan mata.",
+  tujuan:"Murid mampu mempraktikkan gerak spesifik melempar, menangkap, menggiring, dan menembak bola, serta bermain dengan menaati peraturan.",
+  poin:[
+    "Chest pass (operan dada) — bola dipegang di depan dada, didorong lurus ke depan dengan kedua tangan sampai siku lurus.",
+    "Bounce pass (operan pantul) — bola dipantulkan ke lantai kira-kira dua pertiga jarak menuju penerima.",
+    "Overhead pass (operan atas kepala) — untuk mengumpan melewati penjagaan lawan.",
+    "Dribbling — bola dipantulkan dengan ujung jari, bukan telapak tangan, tinggi pantulan setinggi pinggang, pandangan ke depan.",
+    "Shooting satu tangan — siku membentuk sudut siku-siku, bola didorong dengan pelurusan lengan dan lecutan pergelangan tangan.",
+    "Lay up — dua langkah setelah berhenti mendribel, lalu meletakkan bola ke papan pantul."],
+  aman:"Potong kuku pendek untuk menghindari cedera jari. Jangan mendorong lawan saat berebut bola. Pastikan lapangan tidak licin.",
+  cari:"teknik dasar bola basket pembelajaran SMP",
+  soal:[
+    {t:"Operan yang dilakukan dengan memantulkan bola ke lantai disebut…", p:["Chest pass","Bounce pass","Overhead pass","Baseball pass"], k:1},
+    {t:"Saat menggiring bola basket, bola dipantulkan menggunakan…", p:["Telapak tangan","Ujung jari","Kepalan tangan","Pergelangan"], k:1},
+    {t:"Jumlah langkah yang diperbolehkan pada gerakan lay up setelah berhenti mendribel adalah…", p:["Satu langkah","Dua langkah","Tiga langkah","Empat langkah"], k:1},
+    {t:"Jumlah pemain satu regu bola basket di lapangan adalah…", p:["Lima orang","Enam orang","Tujuh orang","Sebelas orang"], k:0},
+    {t:"Pandangan pemain saat menggiring bola sebaiknya…", p:["Tertuju pada bola","Ke arah lapangan dan lawan","Ke bawah","Ke penonton"], k:1}],
+  uraian:[
+    "Jelaskan kapan sebaiknya digunakan chest pass dan kapan digunakan bounce pass.",
+    "Apa yang dimaksud pelanggaran travelling, dan bagaimana cara menghindarinya?"] },
+
+{ id:"kasti", sem:1, nama:"Kasti dan Rounders", rumpun:"Permainan Bola Kecil", ikon:"🥎",
+  ringkas:"Permainan bola kecil beregu yang memadukan memukul, melempar, menangkap, dan berlari menuju tiang hinggap. Mengasah kelincahan, ketepatan, dan kerja sama regu.",
+  tujuan:"Murid mampu mempraktikkan gerak melempar, menangkap, dan memukul bola kecil, serta bermain kasti dengan menaati aturan dan menjaga sportivitas.",
+  poin:[
+    "Melempar lurus (mendatar) — untuk jarak dekat, bola dilempar setinggi dada penerima dengan ayunan dari atas bahu.",
+    "Melempar melambung — untuk jarak jauh, sudut lemparan kira-kira 45 derajat.",
+    "Melempar menyusur tanah — untuk mematikan lawan yang sedang berlari rendah.",
+    "Menangkap bola — telapak tangan membentuk corong, tangan ditarik sedikit ke belakang saat bola menyentuh tangan untuk meredam.",
+    "Memukul bola — pemukul dipegang erat, pandangan ke arah bola, ayunan dari belakang bahu menyilang ke depan.",
+    "Berlari menuju tiang hinggap — berlari secepatnya setelah memukul, membaca posisi penjaga sebelum memutuskan lanjut atau berhenti."],
+  aman:"Pemukul kayu hanya boleh diayun oleh pemukul yang sedang bertugas dan tidak boleh dilempar setelah memukul. Penjaga menjaga jarak aman dari area pemukul.",
+  cari:"permainan kasti teknik dasar SMP",
+  soal:[
+    {t:"Lemparan yang tepat untuk mengoper jarak jauh adalah lemparan…", p:["Menyusur tanah","Mendatar","Melambung","Memantul"], k:2},
+    {t:"Saat menangkap bola, kedua tangan sebaiknya…", p:["Kaku dan tegang","Membentuk corong dan ditarik meredam","Menepuk bola","Menghalau bola"], k:1},
+    {t:"Pandangan pemukul saat akan memukul bola tertuju pada…", p:["Penjaga belakang","Bola yang datang","Tiang hinggap","Wasit"], k:1},
+    {t:"Tempat perhentian sementara pelari dalam permainan kasti disebut…", p:["Ruang bebas","Tiang hinggap","Garis pemukul","Base"], k:1},
+    {t:"Regu pemukul berganti menjadi regu penjaga apabila…", p:["Bola keluar lapangan","Pemukul berhasil kembali ke ruang bebas","Bola pukulan tertangkap langsung tiga kali atau pemukul terkena lemparan","Wasit meniup peluit"], k:2}],
+  uraian:[
+    "Sebutkan tiga jenis lemparan dalam permainan kasti beserta kegunaannya masing-masing.",
+    "Mengapa kerja sama antarpemain penjaga sangat menentukan kemenangan regu? Jelaskan dengan contoh."] },
+
+{ id:"bulutangkis", sem:1, nama:"Bulu Tangkis", rumpun:"Permainan Bola Kecil", ikon:"🏸",
+  ringkas:"Permainan net perorangan atau ganda menggunakan raket dan kok. Menuntut kelincahan kaki, ketepatan pukulan, dan kecepatan reaksi.",
+  tujuan:"Murid mampu mempraktikkan pegangan raket, servis, serta pukulan lob dan drive, lalu menerapkannya dalam permainan sederhana.",
+  poin:[
+    "Pegangan forehand (jabat tangan) — raket dipegang seperti berjabat tangan, digunakan untuk pukulan di sisi kanan badan bagi pemain tangan kanan.",
+    "Pegangan backhand — ibu jari menekan bagian gagang yang lebar, untuk pukulan di sisi kiri badan.",
+    "Sikap siap — kaki dibuka selebar bahu, lutut sedikit ditekuk, raket di depan badan setinggi dada.",
+    "Servis pendek — kok dijatuhkan dekat net, digunakan pada permainan ganda.",
+    "Servis panjang — kok dipukul melambung tinggi ke garis belakang, digunakan pada permainan tunggal.",
+    "Lob dan drive — lob memukul kok tinggi ke belakang lapangan lawan; drive memukul kok mendatar cepat sejajar net."],
+  aman:"Jaga jarak dengan pemain lain saat mengayun raket. Pastikan lantai kering. Peregangan bahu dan pergelangan tangan penting sebelum bermain.",
+  cari:"teknik dasar bulu tangkis pembelajaran SMP",
+  soal:[
+    {t:"Pegangan raket yang menyerupai cara berjabat tangan disebut pegangan…", p:["Backhand","Forehand","Amerika","Campuran"], k:1},
+    {t:"Servis yang tepat digunakan pada permainan tunggal adalah servis…", p:["Pendek","Panjang","Menyusur net","Datar"], k:1},
+    {t:"Pukulan yang melambungkan kok tinggi ke bagian belakang lapangan lawan disebut…", p:["Drive","Lob","Netting","Smash"], k:1},
+    {t:"Sikap siap yang benar dalam bulu tangkis adalah…", p:["Kaki rapat, lutut lurus","Kaki selebar bahu, lutut sedikit ditekuk","Duduk berjongkok","Berdiri satu kaki"], k:1},
+    {t:"Jumlah angka untuk memenangkan satu set dalam sistem reli poin adalah…", p:["15","21","25","30"], k:1}],
+  uraian:[
+    "Jelaskan perbedaan servis pendek dan servis panjang beserta situasi penggunaannya.",
+    "Mengapa kelincahan kaki (footwork) sangat penting dalam bulu tangkis? Berikan contohnya."] },
+
+{ id:"atletik", sem:1, nama:"Atletik", rumpun:"Jalan, Lari, Lompat, Lempar", ikon:"🏃",
+  ringkas:"Cabang olahraga tertua yang menjadi induk gerak dasar manusia: jalan cepat, lari, lompat, dan lempar. Pembelajaran SMP menekankan teknik dasar yang benar dan aman.",
+  tujuan:"Murid mampu mempraktikkan jalan cepat, lari jarak pendek, lompat jauh, dan tolak peluru dengan teknik dasar yang benar.",
+  poin:[
+    "Jalan cepat — salah satu kaki harus selalu menyentuh tanah, lutut kaki tumpu lurus saat menapak. Pelanggarannya disebut melayang (lifting) dan bengkok lutut (bending).",
+    "Lari jarak pendek — start jongkok dengan aba-aba bersedia, siap, ya. Badan condong ke depan, langkah panjang dan cepat, ayunan lengan kuat.",
+    "Lompat jauh gaya jongkok — awalan lari cepat, tolakan satu kaki terkuat pada balok tumpu, melayang dengan sikap jongkok, mendarat dua kaki bersamaan dengan lutut ditekuk.",
+    "Lompat tinggi gaya guling perut — awalan menyerong, tolakan kaki terdekat mistar, badan berguling melewati mistar.",
+    "Tolak peluru gaya menyamping (ortodoks) — peluru diletakkan di pangkal leher dekat rahang, didorong bukan dilempar, sudut tolakan sekitar 40 derajat.",
+    "Lempar lembing dan lempar cakram — gerak akhir berupa pelepasan alat pada titik tertinggi dengan diikuti gerak lanjutan untuk menjaga keseimbangan."],
+  aman:"Nomor lempar hanya dilakukan satu arah dengan aba-aba guru, dan tidak ada murid di daerah pendaratan. Bak lompat harus digemburkan sebelum digunakan.",
+  cari:"atletik lari lompat jauh tolak peluru pembelajaran SMP",
+  soal:[
+    {t:"Aturan utama yang membedakan jalan cepat dengan lari adalah…", p:["Kecepatan langkah","Salah satu kaki selalu menyentuh tanah","Ayunan lengan","Panjang lintasan"], k:1},
+    {t:"Start yang digunakan pada lari jarak pendek adalah start…", p:["Berdiri","Melayang","Jongkok","Duduk"], k:2},
+    {t:"Pendaratan yang benar pada lompat jauh gaya jongkok dilakukan dengan…", p:["Satu kaki","Kedua kaki bersamaan, lutut ditekuk","Duduk","Berlutut"], k:1},
+    {t:"Pada tolak peluru, peluru diletakkan di…", p:["Telapak tangan menggenggam","Pangkal leher dekat rahang","Depan dada","Atas kepala"], k:1},
+    {t:"Gerakan peluru saat dilepaskan adalah…", p:["Dilempar dengan ayunan lengan","Didorong atau ditolak","Diputar","Dipukul"], k:1}],
+  uraian:[
+    "Tuliskan urutan aba-aba start jongkok dan jelaskan sikap badan pada masing-masing aba-aba.",
+    "Jelaskan empat tahapan dalam lompat jauh gaya jongkok secara berurutan."] },
+
+{ id:"silat", sem:1, nama:"Pencak Silat", rumpun:"Aktivitas Beladiri", ikon:"🥋",
+  ringkas:"Beladiri asli Indonesia yang memadukan aspek mental spiritual, seni budaya, beladiri, dan olahraga. Pembelajaran menekankan sikap hormat, disiplin, dan penguasaan gerak dasar.",
+  tujuan:"Murid mampu mempraktikkan kuda-kuda, pola langkah, pukulan, tendangan, serta tangkisan dengan sikap disiplin dan menghormati lawan.",
+  poin:[
+    "Sikap kuda-kuda — kuda-kuda depan, belakang, tengah, samping, dan silang. Berat badan dibagi sesuai jenis kuda-kuda, punggung tetap tegak.",
+    "Pola langkah — lurus, zig-zag, segitiga, segi empat, dan huruf S. Berguna untuk mendekat, menghindar, dan mengatur jarak.",
+    "Pukulan — lurus, tegak, bandul, dan melingkar. Tenaga berasal dari putaran pinggang, bukan hanya lengan.",
+    "Tendangan — lurus (depan), sabit, T, dan belakang. Tumpuan kaki penopang harus kokoh.",
+    "Tangkisan — dalam, luar, atas, dan bawah. Dilakukan dengan lengan atau tungkai untuk membelokkan serangan.",
+    "Elakan dan hindaran — memindahkan sasaran tanpa menyentuh serangan lawan, lebih hemat tenaga daripada menangkis."],
+  aman:"Latihan berpasangan dilakukan tanpa kontak penuh. Jaga jarak aman antarpasangan. Awali dan akhiri dengan sikap hormat.",
+  cari:"pencak silat kuda kuda pukulan tangkisan SMP",
+  soal:[
+    {t:"Sikap dasar yang menjadi fondasi seluruh gerakan pencak silat adalah…", p:["Pukulan","Kuda-kuda","Tangkisan","Elakan"], k:1},
+    {t:"Sumber tenaga utama pada pukulan pencak silat berasal dari…", p:["Lengan saja","Putaran pinggang","Lompatan","Tarikan napas"], k:1},
+    {t:"Gerakan menghindari serangan dengan memindahkan sasaran tanpa menyentuh serangan lawan disebut…", p:["Tangkisan","Elakan","Tangkapan","Kuncian"], k:1},
+    {t:"Berikut ini yang termasuk jenis tendangan dalam pencak silat adalah…", p:["Tendangan sabit","Tendangan voli","Tendangan pinalti","Tendangan sudut"], k:0},
+    {t:"Pencak silat merupakan beladiri yang berasal dari…", p:["Jepang","Korea","Indonesia","Tiongkok"], k:2}],
+  uraian:[
+    "Sebutkan empat jenis kuda-kuda dalam pencak silat dan jelaskan perbedaan letak berat badannya.",
+    "Mengapa dalam pencak silat sikap hormat kepada lawan sama pentingnya dengan penguasaan teknik?"] },
+
+{ id:"kebugaran", sem:1, nama:"Kebugaran Jasmani", rumpun:"Aktivitas Kebugaran", ikon:"💪",
+  ringkas:"Kemampuan tubuh melakukan aktivitas sehari-hari tanpa kelelahan berlebihan dan masih memiliki cadangan tenaga. Unsurnya meliputi kekuatan, daya tahan, kelentukan, kecepatan, kelincahan, dan keseimbangan.",
+  tujuan:"Murid mampu mempraktikkan latihan untuk meningkatkan unsur kebugaran jasmani serta mengukur hasilnya secara sederhana.",
+  poin:[
+    "Kekuatan — latihan push up untuk otot lengan dan dada, sit up untuk otot perut, back up untuk otot punggung, dan squat untuk otot tungkai.",
+    "Daya tahan jantung dan paru — lari jarak sedang, jogging 12 menit, atau naik turun bangku dengan irama tetap.",
+    "Kelentukan — peregangan statis seperti cium lutut dan kayang, serta peregangan dinamis berupa ayunan lengan dan tungkai.",
+    "Kecepatan — lari cepat jarak 30 sampai 60 meter dengan istirahat cukup di antara pengulangan.",
+    "Kelincahan — lari bolak-balik (shuttle run), lari zig-zag melewati kerucut.",
+    "Prinsip latihan — beban bertahap, teratur minimal tiga kali seminggu, dan selalu diawali pemanasan serta diakhiri pendinginan."],
+  aman:"Naikkan beban latihan secara bertahap. Berhenti bila merasa pusing, nyeri dada, atau sesak. Cukupi minum sebelum, saat, dan sesudah berlatih.",
+  cari:"latihan kebugaran jasmani unsur unsur SMP",
+  soal:[
+    {t:"Latihan push up bertujuan meningkatkan kekuatan otot…", p:["Perut","Lengan dan dada","Tungkai","Leher"], k:1},
+    {t:"Kemampuan mengubah arah dengan cepat tanpa kehilangan keseimbangan disebut…", p:["Kekuatan","Kelincahan","Kelentukan","Daya tahan"], k:1},
+    {t:"Bentuk latihan yang tepat untuk meningkatkan kelincahan adalah…", p:["Sit up","Shuttle run","Cium lutut","Angkat beban"], k:1},
+    {t:"Latihan yang paling tepat untuk meningkatkan daya tahan jantung dan paru adalah…", p:["Push up 10 kali","Jogging 12 menit","Peregangan statis","Lompat di tempat 5 detik"], k:1},
+    {t:"Latihan kebugaran sebaiknya dilakukan minimal…", p:["Sekali sebulan","Sekali seminggu","Tiga kali seminggu","Setiap jam"], k:2}],
+  uraian:[
+    "Sebutkan enam unsur kebugaran jasmani beserta satu bentuk latihan untuk masing-masing unsur.",
+    "Susun rencana latihan kebugaran untuk dirimu sendiri selama satu minggu, lengkap dengan hari dan jenis latihannya."] },
+
+/* ================== SEMESTER 2 ================== */
+{ id:"senamlantai", sem:2, nama:"Senam Lantai", rumpun:"Aktivitas Senam", ikon:"🤸",
+  ringkas:"Senam yang dilakukan di atas matras dengan mengandalkan kekuatan, kelentukan, keseimbangan, dan keberanian. Gerakannya terbagi menjadi bertumpu pada kekuatan tangan dan bertumpu pada kelentukan tubuh.",
+  tujuan:"Murid mampu mempraktikkan sikap lilin, kayang, guling depan, guling belakang, dan meroda dengan memperhatikan keselamatan.",
+  poin:[
+    "Sikap lilin — tidur telentang, kedua kaki lurus rapat ke atas, tumpuan pada pundak dan tengkuk, kedua tangan menopang pinggang. Tahan 5 sampai 8 hitungan.",
+    "Kayang — badan membusur dengan tumpuan kedua tangan dan kaki, kepala masuk di antara kedua lengan, dada dibusurkan.",
+    "Guling depan (forward roll) — dagu ditarik ke dada, tengkuk yang menyentuh matras lebih dulu, badan membulat, berakhir pada sikap jongkok.",
+    "Guling belakang (back roll) — jongkok membelakangi matras, dagu ke dada, kedua telapak tangan di samping telinga untuk mendorong saat berguling.",
+    "Meroda — memutar badan ke samping bertumpu pada kedua tangan bergantian, kaki terbuka menyerupai huruf V, mendarat bergantian.",
+    "Guling lenting (neck spring) — lecutan kedua kaki dari sikap guling depan disertai tolakan tangan sehingga badan terlempar ke depan."],
+  aman:"Matras harus rapat tanpa celah dan selalu ada guru atau teman yang membantu memegang pinggang. Tumpuan pada leher sangat berbahaya dan harus segera diperbaiki. Lepas jam tangan, gelang, dan kacamata.",
+  cari:"senam lantai sikap lilin kayang meroda SMP",
+  soal:[
+    {t:"Tumpuan utama pada gerakan sikap lilin terletak pada…", p:["Kedua telapak tangan","Pundak dan tengkuk","Pinggul","Kedua siku saja"], k:1},
+    {t:"Bagian tubuh yang menyentuh matras lebih dulu pada guling depan adalah…", p:["Kepala bagian ubun-ubun","Tengkuk","Punggung","Dahi"], k:1},
+    {t:"Kayang melatih kemampuan fisik berupa…", p:["Kecepatan lari","Kelentukan tulang belakang dan kekuatan bahu","Daya tahan jantung","Ketepatan melempar"], k:1},
+    {t:"Pada gerakan meroda, badan berputar ke arah…", p:["Depan","Belakang","Samping","Diagonal ke bawah"], k:2},
+    {t:"Sikap kedua kaki saat badan berada di atas pada gerakan meroda adalah…", p:["Rapat lurus","Terbuka menyerupai huruf V","Menekuk ke dada","Menyilang"], k:1}],
+  uraian:[
+    "Tuliskan urutan gerakan sikap lilin dari sikap awal sampai sikap akhir dengan bahasamu sendiri.",
+    "Sebutkan tiga hal yang kamu lakukan agar terhindar dari cedera saat praktik senam lantai."] },
+
+{ id:"berirama", sem:2, nama:"Gerak Berirama", rumpun:"Aktivitas Senam Irama", ikon:"🎵",
+  ringkas:"Rangkaian gerak yang dilakukan mengikuti irama musik atau hitungan, menekankan keserasian antara gerak, irama, dan kelenturan tubuh. Sering disebut senam irama atau senam ritmik.",
+  tujuan:"Murid mampu mempraktikkan variasi gerak langkah dan ayunan lengan sesuai irama hitungan atau musik secara berkelompok.",
+  poin:[
+    "Tiga unsur utama — kelentukan tubuh, kesinambungan gerak, dan ketepatan dengan irama.",
+    "Langkah biasa (looppas) — melangkah dengan tumit mendarat lebih dulu, lutut mengeper, dilakukan dengan hitungan 2/4 atau 4/4.",
+    "Langkah rapat (bijtrekpas) — melangkahkan satu kaki lalu merapatkan kaki yang lain.",
+    "Langkah keseimbangan (balanspas) — melangkah maju lalu menyusul dengan kaki lain tanpa menapak penuh.",
+    "Ayunan lengan — ke depan belakang, ke samping, dan memutar. Gerakan mengalir dan tidak kaku, selaras dengan langkah kaki.",
+    "Rangkaian senam irama — terdiri atas pemanasan, inti, dan pendinginan. Contoh yang dikenal di sekolah adalah Senam Kesegaran Jasmani (SKJ)."],
+  aman:"Gunakan sepatu olahraga agar telapak kaki tidak nyeri. Jaga jarak antarteman agar lengan tidak beradu. Jangan memaksakan gerakan di luar kemampuan kelentukan.",
+  cari:"senam irama gerak berirama langkah ayunan lengan SMP",
+  soal:[
+    {t:"Tiga unsur utama dalam aktivitas gerak berirama adalah…", p:["Kekuatan, kecepatan, ketepatan","Kelentukan tubuh, kesinambungan gerak, dan ketepatan irama","Daya tahan, kelincahan, keseimbangan","Irama, suara, dan kostum"], k:1},
+    {t:"Bagian kaki yang mendarat lebih dulu pada langkah biasa adalah…", p:["Ujung jari","Tumit","Sisi luar kaki","Telapak penuh"], k:1},
+    {t:"Gerakan lengan pada senam irama sebaiknya dilakukan dengan…", p:["Kaku dan tegang","Mengalir selaras dengan langkah kaki","Secepat mungkin","Menyentak-nyentak"], k:1},
+    {t:"Urutan rangkaian senam irama yang benar adalah…", p:["Inti, pemanasan, pendinginan","Pemanasan, inti, pendinginan","Pendinginan, inti, pemanasan","Pemanasan, pendinginan, inti"], k:1},
+    {t:"Senam irama disebut juga dengan istilah…", p:["Senam lantai","Senam ritmik","Senam alat","Senam ketangkasan"], k:1}],
+  uraian:[
+    "Jelaskan mengapa ketepatan irama menjadi penilaian utama dalam aktivitas gerak berirama.",
+    "Susun rangkaian sederhana empat gerakan senam irama beserta hitungannya."] },
+
+{ id:"renang", sem:2, nama:"Aktivitas Air", rumpun:"Renang dan Keselamatan di Air", ikon:"🏊",
+  ringkas:"Aktivitas gerak di air yang melatih pernapasan, koordinasi, dan daya tahan, sekaligus membekali keterampilan menyelamatkan diri. Gaya yang dipelajari di SMP umumnya gaya bebas dan gaya dada.",
+  tujuan:"Murid mampu mempraktikkan gerak dasar meluncur, gerakan tungkai, gerakan lengan, dan pengambilan napas, serta memahami aturan keselamatan di kolam.",
+  poin:[
+    "Pengenalan air — membiasakan diri dengan berjalan di kolam dangkal, membenamkan wajah, dan mengembuskan napas di dalam air.",
+    "Meluncur — menolak dinding kolam dengan kedua kaki, badan lurus sejajar permukaan air, kedua lengan lurus ke depan.",
+    "Gaya bebas (crawl) — gerakan tungkai naik turun bergantian dari pangkal paha, lengan mengayuh bergantian, napas diambil dengan memutar kepala ke samping.",
+    "Gaya dada (katak) — tungkai menekuk lalu menendang ke samping dan merapat, kedua lengan membuka ke samping, napas diambil saat kepala naik ke depan.",
+    "Pengambilan napas — udara diambil melalui mulut di atas air dan diembuskan perlahan melalui hidung dan mulut di dalam air.",
+    "Keselamatan di air — tidak berenang sendirian, tidak melompat di kolam dangkal, dan mengenali cara menolong dengan menjulurkan alat, bukan menceburkan diri."],
+  aman:"Dilarang berenang tanpa pengawasan. Lakukan pemanasan di darat sebelum masuk air agar tidak kram. Jangan berenang saat sedang sakit atau terlalu kenyang. Ikuti seluruh aturan kolam.",
+  cari:"renang gaya bebas gaya dada pembelajaran SMP",
+  soal:[
+    {t:"Gerakan tungkai pada renang gaya bebas dilakukan dengan…", p:["Menekuk lalu menendang ke samping","Naik turun bergantian dari pangkal paha","Menggunting menyilang","Melipat ke dada"], k:1},
+    {t:"Pengambilan napas pada renang gaya bebas dilakukan dengan…", p:["Mengangkat kepala ke depan","Memutar kepala ke samping","Menahan napas sepanjang lintasan","Membalik badan"], k:1},
+    {t:"Sikap badan yang benar saat meluncur adalah…", p:["Menekuk di pinggang","Lurus sejajar permukaan air","Duduk","Miring ke samping"], k:1},
+    {t:"Cara menolong korban tenggelam yang paling aman bagi penolong pemula adalah…", p:["Langsung menceburkan diri","Menjulurkan galah, tali, atau pelampung","Berteriak saja","Menyelam mengejar korban"], k:1},
+    {t:"Udara diembuskan saat berenang dilakukan melalui…", p:["Hidung dan mulut di dalam air","Hidung saja di atas air","Ditahan terus","Mulut tertutup rapat"], k:0}],
+  uraian:[
+    "Jelaskan perbedaan gerakan tungkai pada renang gaya bebas dan gaya dada.",
+    "Sebutkan empat aturan keselamatan yang wajib dipatuhi saat melakukan aktivitas di kolam renang."] },
+
+{ id:"hidupsehat", sem:2, nama:"Pola Hidup Sehat", rumpun:"Kesehatan", ikon:"🩺",
+  ringkas:"Materi kesehatan yang membahas gizi seimbang, kebersihan diri, aktivitas fisik, istirahat cukup, serta bahaya penyalahgunaan narkoba dan pergaulan yang tidak sehat pada masa remaja.",
+  tujuan:"Murid mampu menjelaskan pola hidup sehat dan menerapkannya dalam kebiasaan sehari-hari serta menolak perilaku berisiko.",
+  poin:[
+    "Gizi seimbang — pedoman Isi Piringku: separuh piring berisi sayur dan buah, separuh lagi berisi makanan pokok dan lauk pauk, disertai minum air putih yang cukup.",
+    "Aktivitas fisik remaja — minimal 60 menit aktivitas sedang sampai berat setiap hari, boleh dibagi menjadi beberapa sesi.",
+    "Istirahat dan tidur — remaja membutuhkan tidur sekitar 8 sampai 9 jam per malam untuk pemulihan tubuh dan daya tahan.",
+    "Kebersihan diri dan lingkungan — mandi dua kali sehari, cuci tangan dengan sabun, menjaga kebersihan pakaian olahraga, dan menjaga kebersihan kelas.",
+    "Bahaya NAPZA dan rokok — merusak sistem saraf, jantung, dan paru, menurunkan prestasi belajar, serta menimbulkan ketergantungan.",
+    "Pergaulan sehat — memilih teman yang mendorong kebiasaan baik, berani menolak ajakan berisiko, dan bercerita kepada orang tua atau guru saat menghadapi tekanan."],
+  aman:"Bila mengalami keluhan kesehatan yang berulang, sampaikan kepada guru atau orang tua agar diperiksa tenaga kesehatan. Jangan mengonsumsi obat tanpa petunjuk orang dewasa.",
+  cari:"pola hidup sehat gizi seimbang remaja SMP",
+  soal:[
+    {t:"Menurut pedoman Isi Piringku, separuh piring makan sebaiknya diisi oleh…", p:["Nasi","Sayur dan buah","Lauk hewani","Makanan manis"], k:1},
+    {t:"Lama aktivitas fisik yang dianjurkan bagi remaja setiap hari adalah…", p:["10 menit","30 menit","60 menit","3 jam"], k:2},
+    {t:"Kebutuhan tidur remaja setiap malam berkisar…", p:["4 sampai 5 jam","6 jam","8 sampai 9 jam","12 jam"], k:2},
+    {t:"Berikut ini yang merupakan dampak penyalahgunaan NAPZA adalah…", p:["Meningkatkan prestasi belajar","Merusak sistem saraf dan menimbulkan ketergantungan","Memperkuat otot","Menambah nafsu makan sehat"], k:1},
+    {t:"Sikap yang tepat ketika teman mengajak melakukan hal berisiko adalah…", p:["Ikut agar tidak dijauhi","Menolak dan bercerita kepada orang tua atau guru","Diam saja","Mengajak teman lain ikut"], k:1}],
+  uraian:[
+    "Tuliskan menu sehari yang sesuai dengan pedoman gizi seimbang untuk dirimu, dari pagi sampai malam.",
+    "Jelaskan tiga alasan mengapa remaja harus menolak rokok dan NAPZA."] }
+];
+
+const SEMESTER = [
+  {no:1, nama:"Semester 1", ket:"Permainan bola besar, bola kecil, atletik, beladiri, dan kebugaran jasmani"},
+  {no:2, nama:"Semester 2", ket:"Senam lantai, gerak berirama, aktivitas air, dan pola hidup sehat"}
+];
+
+/* penilaian diri yang dipakai seluruh materi */
+const CEKLIS = [
+  "Saya memahami penjelasan materi ini",
+  "Saya sudah mempraktikkan gerakannya",
+  "Saya melakukan pemanasan sebelum praktik",
+  "Saya bekerja sama dan menghargai teman saat praktik"
+];
+
+const cariMateri = id => MATERI.find(m => m.id === id) || null;
+</script>
+<script>
+/* ======================================================================
+   SIPJOK 2 — keadaan aplikasi dan sambungan ke spreadsheet
+   ====================================================================== */
+
+const S = {
+  peran:"", server:"", kodeKelas:"", kodeGuru:"", nama:"", kelas:"",
+  konten:{ pengumuman:"", materi:{} },   /* materi[id] = {video, catatan} */
+  gambar:{},                             /* gambar[id] = [dataURL, ...]   */
+  sudahTarikGambar:{}
+};
+MATERI.forEach(m => { S.konten.materi[m.id] = {video:"", catatan:""}; S.gambar[m.id] = []; });
+
+function simpanLokal(){
+  try{
+    localStorage.setItem("sipjok2", JSON.stringify({
+      peran:S.peran, server:S.server, kodeKelas:S.kodeKelas, kodeGuru:S.kodeGuru,
+      nama:S.nama, kelas:S.kelas, konten:S.konten
+    }));
+  }catch(e){}
+}
+function muatLokal(){
+  try{
+    const t = localStorage.getItem("sipjok2");
+    if(!t) return;
+    const d = JSON.parse(t);
+    Object.assign(S, d);
+    if(!S.konten) S.konten = {pengumuman:"", materi:{}};
+    if(!S.konten.materi) S.konten.materi = {};
+    S.gambar = {}; S.sudahTarikGambar = {};
+    MATERI.forEach(m => {
+      if(!S.konten.materi[m.id]) S.konten.materi[m.id] = {video:"", catatan:""};
+      S.gambar[m.id] = [];
+    });
+  }catch(e){}
+}
+
+/* ================= bantu ================= */
+const $ = s => document.querySelector(s);
+const esc = t => String(t==null?"":t).replace(/[<>&"]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
+const kabar = (el,teks,jenis="ok")=>{ if(el){ el.textContent = teks; el.className = "pesan " + jenis; } };
+const hariIni = () => new Date().toISOString().slice(0,10);
+const tanggalID = d => d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+
+function idYoutube(url){
+  const s = String(url||"").trim();
+  if(/^[A-Za-z0-9_-]{11}$/.test(s)) return s;
+  const m = s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+/* ================= sambungan ================= */
+async function kirimServer(data){
+  if(!S.server) return {ok:false, pesan:"Alamat server belum diisi."};
+  try{
+    const r = await fetch(S.server, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"},
+                                     body:JSON.stringify(data), redirect:"follow"});
+    const j = await r.json();
+    return j && j.ok ? j : {ok:false, pesan:(j && j.pesan) || "Server menolak kiriman."};
+  }catch(e){
+    try{
+      await fetch(S.server, {method:"POST", mode:"no-cors",
+                             headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(data)});
+      return {ok:true, buta:true};
+    }catch(e2){ return {ok:false, pesan:"Gagal menghubungi server. Periksa alamat dan koneksi."}; }
+  }
+}
+
+async function ambilServer(param){
+  if(!S.server) return {ok:false, pesan:"Alamat server belum diisi."};
+  try{
+    const r = await fetch(S.server + (S.server.includes("?") ? "&" : "?") + param, {redirect:"follow"});
+    const j = await r.json();
+    return j || {ok:false, pesan:"Jawaban server kosong."};
+  }catch(e){ return {ok:false, pesan:"Gagal menghubungi server."}; }
+}
+
+/* ================= kode Apps Script ================= */
+const KODE_APPS_SCRIPT = [
+"function lembar(nama){",
+"  var ss = SpreadsheetApp.getActiveSpreadsheet();",
+"  return ss.getSheetByName(nama) || ss.insertSheet(nama);",
+"}",
+"",
+"function jawab(obj){",
+"  return ContentService.createTextOutput(JSON.stringify(obj))",
+"         .setMimeType(ContentService.MimeType.JSON);",
+"}",
+"",
+"function cekGuru(kodeKelas, kodeGuru){",
+"  var sh = lembar('Kode');",
+"  if(sh.getLastRow() < 2) return false;",
+"  var data = sh.getRange(2, 1, sh.getLastRow()-1, 2).getValues();",
+"  for(var i = 0; i < data.length; i++){",
+"    if(String(data[i][0]) === String(kodeKelas) && String(data[i][1]) === String(kodeGuru)) return true;",
+"  }",
+"  return false;",
+"}",
+"",
+"function hapusBaris(sh, cocok){",
+"  var br = sh.getLastRow();",
+"  if(br < 2) return;",
+"  var d = sh.getRange(2, 1, br-1, sh.getLastColumn()).getValues();",
+"  for(var i = d.length - 1; i >= 0; i--){",
+"    if(cocok(d[i])) sh.deleteRow(i + 2);",
+"  }",
+"}",
+"",
+"function doPost(e){",
+"  var d = JSON.parse(e.postData.contents);",
+"",
+"  if(d.aksi === 'daftarkode'){",
+"    var shk = lembar('Kode');",
+"    if(shk.getLastRow() === 0) shk.appendRow(['Kode Kelas','Kode Guru','Dibuat']);",
+"    if(shk.getLastRow() > 1){",
+"      var ada = shk.getRange(2, 1, shk.getLastRow()-1, 1).getValues();",
+"      for(var i = 0; i < ada.length; i++){",
+"        if(String(ada[i][0]) === String(d.kodeKelas)) return jawab({ok:false, pesan:'Kode kelas itu sudah terpakai.'});",
+"      }",
+"    }",
+"    shk.appendRow([d.kodeKelas, d.kodeGuru, new Date()]);",
+"    return jawab({ok:true});",
+"  }",
+"",
+"  if(d.aksi === 'konten'){",
+"    if(!cekGuru(d.kodeKelas, d.kodeGuru)) return jawab({ok:false, pesan:'Kode guru salah.'});",
+"    var shc = lembar('Konten');",
+"    if(shc.getLastRow() === 0) shc.appendRow(['Kode Kelas','Versi','Bagian','Total','Isi','Waktu']);",
+"    hapusBaris(shc, function(b){ return String(b[0]) === String(d.kodeKelas); });",
+"    var isi = String(d.isi || '');",
+"    var ptg = 45000;",
+"    var total = Math.max(1, Math.ceil(isi.length / ptg));",
+"    for(var b = 0; b < total; b++){",
+"      shc.appendRow([d.kodeKelas, d.versi, b + 1, total, isi.substr(b * ptg, ptg), new Date()]);",
+"    }",
+"    return jawab({ok:true, bagian:total});",
+"  }",
+"",
+"  if(d.aksi === 'gambarmulai'){",
+"    if(!cekGuru(d.kodeKelas, d.kodeGuru)) return jawab({ok:false, pesan:'Kode guru salah.'});",
+"    var shg = lembar('Gambar');",
+"    if(shg.getLastRow() === 0) shg.appendRow(['Kode Kelas','Materi','Indeks','Versi','Bagian','Total','Isi']);",
+"    hapusBaris(shg, function(b){",
+"      return String(b[0]) === String(d.kodeKelas) && String(b[1]) === String(d.materi);",
+"    });",
+"    return jawab({ok:true});",
+"  }",
+"",
+"  if(d.aksi === 'gambar'){",
+"    if(!cekGuru(d.kodeKelas, d.kodeGuru)) return jawab({ok:false, pesan:'Kode guru salah.'});",
+"    var shg2 = lembar('Gambar');",
+"    if(shg2.getLastRow() === 0) shg2.appendRow(['Kode Kelas','Materi','Indeks','Versi','Bagian','Total','Isi']);",
+"    var g = String(d.isi || '');",
+"    var pg = 45000;",
+"    var tg = Math.max(1, Math.ceil(g.length / pg));",
+"    for(var v = 0; v < tg; v++){",
+"      shg2.appendRow([d.kodeKelas, d.materi, d.idx, d.versi, v + 1, tg, g.substr(v * pg, pg)]);",
+"    }",
+"    return jawab({ok:true, bagian:tg});",
+"  }",
+"",
+"  if(d.aksi === 'absen'){",
+"    var sha = lembar('Absensi');",
+"    if(sha.getLastRow() === 0) sha.appendRow(['Waktu','Kode Kelas','Nama','Kelas','Materi','Semester','Keterangan','Catatan']);",
+"    sha.appendRow([new Date(), d.kodeKelas, d.nama, d.kelas, d.materi, d.semester, d.ket, d.catatan || '']);",
+"    return jawab({ok:true});",
+"  }",
+"",
+"  if(d.aksi === 'lkpd'){",
+"    var shl = lembar('LKPD');",
+"    if(shl.getLastRow() === 0){",
+"      shl.appendRow(['Waktu','Kode Kelas','Nama','Kelas','Materi','Semester','Nilai PG','Benar','Jumlah Soal',",
+"                     'Ceklis','Uraian 1','Uraian 2','Refleksi','Jawaban PG']);",
+"    }",
+"    var u = d.uraian || [];",
+"    shl.appendRow([new Date(), d.kodeKelas, d.nama, d.kelas, d.materi, d.semester, d.nilai, d.benar, d.total,",
+"                   d.ceklis, u[0] || '', u[1] || '', d.refleksi || '', d.jawab || '']);",
+"    return jawab({ok:true});",
+"  }",
+"",
+"  return jawab({ok:false, pesan:'Aksi tidak dikenali.'});",
+"}",
+"",
+"function doGet(e){",
+"  var p = (e && e.parameter) ? e.parameter : {};",
+"",
+"  if(p.aksi === 'cek') return jawab({ok: cekGuru(p.kode, p.guru)});",
+"",
+"  if(p.aksi === 'konten'){",
+"    var shc = lembar('Konten');",
+"    if(shc.getLastRow() < 2) return jawab({ok:true, versi:0, isi:''});",
+"    var dk = shc.getRange(2, 1, shc.getLastRow()-1, 5).getValues();",
+"    var bag = [], versi = 0;",
+"    for(var i = 0; i < dk.length; i++){",
+"      if(String(dk[i][0]) !== String(p.kode)) continue;",
+"      versi = Number(dk[i][1]) || versi;",
+"      bag.push({b:Number(dk[i][2]) || 1, isi:String(dk[i][4])});",
+"    }",
+"    if(!bag.length) return jawab({ok:true, versi:0, isi:''});",
+"    bag.sort(function(a,b){ return a.b - b.b; });",
+"    var gabung = '';",
+"    for(var k = 0; k < bag.length; k++) gabung += bag[k].isi;",
+"    return jawab({ok:true, versi:versi, isi:gabung});",
+"  }",
+"",
+"  if(p.aksi === 'gambar'){",
+"    var shg = lembar('Gambar');",
+"    if(shg.getLastRow() < 2) return jawab({ok:true, gambar:[]});",
+"    var dg = shg.getRange(2, 1, shg.getLastRow()-1, 7).getValues();",
+"    var kump = {};",
+"    for(var i = 0; i < dg.length; i++){",
+"      if(String(dg[i][0]) !== String(p.kode)) continue;",
+"      if(String(dg[i][1]) !== String(p.materi)) continue;",
+"      var ix = Number(dg[i][2]) || 0;",
+"      if(!kump[ix]) kump[ix] = [];",
+"      kump[ix].push({b:Number(dg[i][4]) || 1, isi:String(dg[i][6] || '')});",
+"    }",
+"    var keluar = [];",
+"    var urut = Object.keys(kump).sort(function(a,b){ return Number(a) - Number(b); });",
+"    for(var u = 0; u < urut.length; u++){",
+"      var bagi = kump[urut[u]];",
+"      bagi.sort(function(a,b){ return a.b - b.b; });",
+"      var satu = '';",
+"      for(var z = 0; z < bagi.length; z++) satu += bagi[z].isi;",
+"      if(satu) keluar.push(satu);",
+"    }",
+"    return jawab({ok:true, gambar:keluar});",
+"  }",
+"",
+"  if(p.aksi === 'daftarabsen' || p.aksi === 'daftarlkpd'){",
+"    if(!cekGuru(p.kode, p.guru)) return jawab({ok:false, pesan:'Kode guru salah.'});",
+"    var nama = (p.aksi === 'daftarlkpd') ? 'LKPD' : 'Absensi';",
+"    var sh = lembar(nama);",
+"    if(sh.getLastRow() < 2) return jawab({ok:true, kolom:[], baris:[]});",
+"    var semua = sh.getDataRange().getDisplayValues();",
+"    var kolom = semua.shift();",
+"    var baris = [];",
+"    for(var i = 0; i < semua.length; i++){",
+"      if(String(semua[i][1]) !== String(p.kode)) continue;",
+"      if(p.materi && String(semua[i][4]) !== String(p.materi)) continue;",
+"      baris.push(semua[i]);",
+"    }",
+"    return jawab({ok:true, kolom:kolom, baris:baris.reverse()});",
+"  }",
+"",
+"  return jawab({ok:false, pesan:'Aksi tidak dikenali.'});",
+"}"
+].join("\n");
+
+function salinKode(el){
+  const kotak = document.createElement("textarea");
+  kotak.value = KODE_APPS_SCRIPT;
+  kotak.setAttribute("readonly","");
+  kotak.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0";
+  document.body.appendChild(kotak);
+  kotak.select();
+  kotak.setSelectionRange(0, kotak.value.length);
+  let berhasil = false;
+  try{ berhasil = document.execCommand("copy"); }catch(e){}
+  kotak.remove();
+  if(berhasil) return kabar(el,"Kode tersalin. Tempel di editor Apps Script, lalu simpan.","ok");
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(KODE_APPS_SCRIPT).then(
+      () => kabar(el,"Kode tersalin. Tempel di editor Apps Script, lalu simpan.","ok"),
+      () => sorotUntukSalin(el));
+  } else sorotUntukSalin(el);
+}
+
+function sorotUntukSalin(el){
+  let t = el.parentElement.querySelector("textarea.kode");
+  if(!t){
+    t = document.createElement("textarea");
+    t.className = "kode";
+    t.readOnly = true;
+    t.style.cssText = "min-height:230px;font-size:.72rem;line-height:1.45;white-space:pre;resize:vertical;margin-top:10px";
+    el.parentElement.appendChild(t);
+  }
+  t.value = KODE_APPS_SCRIPT;
+  t.focus(); t.select(); t.setSelectionRange(0, t.value.length);
+  kabar(el,"Kodenya sudah tersorot di kotak bawah. Tekan Ctrl+C, atau tahan layar lalu pilih Salin di HP.","info");
+}
+</script>
+<script>
+/* ======================================================================
+   SIPJOK 2 — antarmuka
+   ====================================================================== */
+
+let semAktif = 1;
+let materiBuka = "";
+
+/* ================= layar mulai ================= */
+document.querySelectorAll("[data-peran]").forEach(b => {
+  b.addEventListener("click", () => {
+    const p = b.dataset.peran;
+    $("#masuk-siswa").hidden = (p !== "siswa");
+    $("#masuk-guru").hidden  = (p !== "guru");
+    $("#kartu-pasang").hidden = (p !== "guru");
+    document.body.classList.toggle("guru", p === "guru");
+    $("#masuk-" + p).scrollIntoView({behavior:"smooth", block:"start"});
+  });
+});
+$("#salin-gs").addEventListener("click", () => salinKode($("#gs-pesan")));
+$("#salin-gs2").addEventListener("click", () => salinKode($("#gs-pesan2")));
+
+const alamatSah = u => /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec/.test(u);
+
+$("#s-masuk").addEventListener("click", async () => {
+  const p = $("#s-pesan");
+  const server = $("#s-server").value.trim(), kode = $("#s-kode").value.trim();
+  const nama = $("#s-nama").value.trim(), kelas = $("#s-kelas").value.trim();
+  if(!alamatSah(server)) return kabar(p,"Alamat server belum benar. Mintalah tautan kelas dari guru PJOK.","gagal");
+  if(!kode) return kabar(p,"Kode kelas belum diisi.","gagal");
+  if(nama.length < 3) return kabar(p,"Tulis nama lengkapmu.","gagal");
+  if(!kelas) return kabar(p,"Kelas belum diisi.","gagal");
+  Object.assign(S, {peran:"siswa", server, kodeKelas:kode, nama, kelas});
+  simpanLokal();
+  kabar(p,"Mengambil materi dari guru…","info");
+  await tarikKonten();
+  bukaAplikasi();
+});
+
+$("#g-masuk").addEventListener("click", async () => {
+  const p = $("#g-pesan");
+  const server = $("#g-server").value.trim(), kode = $("#g-kode").value.trim(), sandi = $("#g-sandi").value.trim();
+  if(!alamatSah(server)) return kabar(p,"Alamat server belum benar. Salin alamat yang berakhiran /exec.","gagal");
+  if(!kode || !sandi) return kabar(p,"Kode kelas dan kode guru wajib diisi.","gagal");
+  Object.assign(S, {peran:"guru", server, kodeKelas:kode, kodeGuru:sandi});
+  kabar(p,"Memeriksa kode…","info");
+  const j = await ambilServer("aksi=cek&kode=" + encodeURIComponent(kode) + "&guru=" + encodeURIComponent(sandi));
+  if(!j.ok) return kabar(p,"Kode kelas dan kode guru tidak cocok dengan yang terdaftar di spreadsheet.","gagal");
+  simpanLokal();
+  await tarikKonten();
+  bukaAplikasi();
+});
+
+$("#g-daftar").addEventListener("click", async () => {
+  const p = $("#g-pesan");
+  const server = $("#g-server").value.trim(), kode = $("#g-kode").value.trim(), sandi = $("#g-sandi").value.trim();
+  if(!alamatSah(server)) return kabar(p,"Isi dulu alamat server yang berakhiran /exec.","gagal");
+  if(kode.length < 3 || sandi.length < 4) return kabar(p,"Kode kelas minimal 3 huruf dan kode guru minimal 4 huruf.","gagal");
+  S.server = server;
+  kabar(p,"Mendaftarkan…","info");
+  const j = await kirimServer({aksi:"daftarkode", kodeKelas:kode, kodeGuru:sandi});
+  if(!j.ok) return kabar(p, j.pesan || "Gagal mendaftarkan kode.","gagal");
+  Object.assign(S, {peran:"guru", kodeKelas:kode, kodeGuru:sandi});
+  simpanLokal();
+  kabar(p,"Kode kelas terdaftar. Membuka panel guru…","ok");
+  setTimeout(bukaAplikasi, 700);
+});
+
+/* ================= kerangka ================= */
+const MENU = [
+  {id:"beranda", nama:"Beranda", untuk:"semua", svg:'<path d="M4 11 12 4l8 7"/><path d="M6.5 9.5V20h11V9.5"/>'},
+  {id:"materi",  nama:"Materi",  untuk:"semua", svg:'<path d="M4 5.5h7v14H4zM13 5.5h7v14h-7z"/><path d="M11 5.5v14"/>'},
+  {id:"absensi", nama:"Absen",   untuk:"siswa", svg:'<path d="M5 4.5h14v15H5z"/><path d="M8.5 11.5l2.4 2.4 4.6-4.8"/>'},
+  {id:"lkpd",    nama:"LKPD",    untuk:"siswa", svg:'<path d="M6 3.5h9l3.5 3.5v13H6z"/><path d="M9 12h7M9 15.5h7M9 8.5h3"/>'},
+  {id:"konten",  nama:"Kelola",  untuk:"guru",  svg:'<path d="M4 6h16v12H4z"/><path d="M8 10.5l2.5 2.5L8 15.5M13 15.5h3.5"/>'},
+  {id:"rekap",   nama:"Rekap",   untuk:"guru",  svg:'<path d="M5 19.5V11M10 19.5V5M15 19.5v-6M20 19.5v-9"/>'},
+  {id:"atur",    nama:"Atur",    untuk:"guru",  svg:'<circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.2M12 18.3v2.2M20.5 12h-2.2M5.7 12H3.5M18 6l-1.6 1.6M7.6 16.4L6 18M18 18l-1.6-1.6M7.6 7.6L6 6"/>'}
+];
+
+function gambarNav(){
+  const dipakai = MENU.filter(m => m.untuk === "semua" || m.untuk === S.peran);
+  $("#nav").innerHTML = dipakai.map((m,i) =>
+    '<button data-hal="' + m.id + '" aria-current="' + (i===0) + '"><svg viewBox="0 0 24 24">' + m.svg + '</svg>' + m.nama + '</button>').join("");
+}
+
+$("#nav").addEventListener("click", e => {
+  const b = e.target.closest("button[data-hal]"); if(!b) return;
+  buka(b.dataset.hal);
+});
+
+function buka(id){
+  document.querySelectorAll("#nav button").forEach(x => x.setAttribute("aria-current", String(x.dataset.hal === id)));
+  document.querySelectorAll(".bungkus > section").forEach(s => s.hidden = (s.id !== "hal-" + id));
+  window.scrollTo({top:0});
+  if(id === "materi" && !materiBuka){ $("#daftar-materi").hidden = false; $("#detail-materi").hidden = true; }
+  if(id === "konten") isiFormKonten();
+  if(id === "atur"){ tampilkanTautan(); infoSambungan(); }
+}
+
+function bukaAplikasi(){
+  document.body.classList.toggle("guru", S.peran === "guru");
+  $("#layar-mulai").hidden = true;
+  $("#layar-app").hidden = false;
+  $("#lencana").innerHTML = S.peran === "guru"
+    ? 'Guru<span>Kelas ' + esc(S.kodeKelas) + '</span>'
+    : esc(S.nama) + '<span>' + esc(S.kelas) + '</span>';
+  if(S.peran === "siswa") $("#sapa").textContent = "Halo " + S.nama + ". Pilih materi yang sedang dipelajari, tonton videonya, lalu isi absensi dan LKPD.";
+  gambarNav();
+  isiPilihanMateri();
+  gambarTabSemester();
+  gambarRak();
+  gambarRakCepat();
+  gambarPapan();
+  buka("beranda");
+}
+
+/* ================= daftar materi ================= */
+function gambarTabSemester(){
+  $("#tab-sem").innerHTML = SEMESTER.map(s =>
+    '<button data-sem="' + s.no + '" aria-pressed="' + (s.no === semAktif) + '">' + s.nama + '</button>').join("");
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-sem]"); if(!b) return;
+  semAktif = Number(b.dataset.sem);
+  gambarTabSemester();
+  gambarRak();
+});
+
+function kartuUnit(m){
+  return '<button class="unit" data-buka="' + m.id + '">' +
+    '<span class="lambang">' + m.ikon + '</span>' +
+    '<span><b>' + esc(m.nama) + '</b><span>' + esc(m.rumpun) + '</span></span></button>';
+}
+
+function gambarRak(){
+  const s = SEMESTER.find(x => x.no === semAktif);
+  $("#ket-sem").textContent = s ? s.ket : "";
+  $("#rak-materi").innerHTML = MATERI.filter(m => m.sem === semAktif).map(kartuUnit).join("");
+}
+
+function gambarRakCepat(){
+  $("#rak-cepat").innerHTML = MATERI.slice(0, 6).map(kartuUnit).join("");
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-buka]"); if(!b) return;
+  bukaMateri(b.dataset.buka);
+});
+
+/* ================= detail materi ================= */
+async function bukaMateri(id){
+  const m = cariMateri(id); if(!m) return;
+  materiBuka = id;
+  semAktif = m.sem;
+  document.querySelectorAll("#nav button").forEach(x => x.setAttribute("aria-current", String(x.dataset.hal === "materi")));
+  document.querySelectorAll(".bungkus > section").forEach(s => s.hidden = (s.id !== "hal-materi"));
+  $("#daftar-materi").hidden = true;
+  $("#detail-materi").hidden = false;
+  gambarDetail(m);
+  window.scrollTo({top:0});
+  if(!S.sudahTarikGambar[id]){
+    const j = await ambilServer("aksi=gambar&kode=" + encodeURIComponent(S.kodeKelas) + "&materi=" + id);
+    if(j.ok){ S.gambar[id] = j.gambar || []; S.sudahTarikGambar[id] = true; }
+    if(materiBuka === id) gambarDetail(m);
+  }
+}
+
+function gambarDetail(m){
+  const k = S.konten.materi[m.id] || {};
+  const foto = S.gambar[m.id] || [];
+  const vid = idYoutube(k.video);
+
+  const galeri = foto.length
+    ? '<div class="galeri">' + foto.map(f => '<img src="' + f + '" alt="Peraga ' + esc(m.nama) + '" loading="lazy">').join("") + '</div>'
+    : '<div class="kosong">Gambar peraga belum diunggah guru.</div>';
+
+  const video = vid
+    ? '<div class="bingkai"><iframe src="https://www.youtube-nocookie.com/embed/' + esc(vid) + '" title="Video ' + esc(m.nama) + '" allowfullscreen loading="lazy"></iframe></div>'
+    : '<p class="mini">Video belum ditautkan guru. <a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(m.cari) + '" target="_blank" rel="noopener">Cari di YouTube</a></p>';
+
+  const catatan = (k.catatan || "").trim()
+    ? '<div class="catatan-guru"><b>Catatan guru</b>' + esc(k.catatan) + '</div>' : "";
+
+  $("#detail-materi").innerHTML =
+    '<div class="kartu">' +
+      '<button class="tbl sunyi kecil" id="kembali" style="margin:0 0 14px">← Daftar materi</button>' +
+      '<span class="cap">Semester ' + m.sem + ' · ' + esc(m.rumpun) + '</span>' +
+      '<h2>' + m.ikon + ' ' + esc(m.nama) + '</h2>' +
+      galeri + video +
+      '<p>' + esc(m.ringkas) + '</p>' +
+      '<div class="catatan-guru" style="background:#EAF1FB;border-color:#C3D8F2"><b>Tujuan pembelajaran</b>' + esc(m.tujuan) + '</div>' +
+      catatan +
+      '<h3>Materi dan teknik dasar</h3><ul>' + m.poin.map(p => '<li>' + esc(p) + '</li>').join("") + '</ul>' +
+      '<div class="awas"><b>Keselamatan</b>' + esc(m.aman) + '</div>' +
+    '</div>' +
+    '<div class="kartu">' +
+      '<h3>Sudah paham materi ini?</h3>' +
+      '<p class="mini">Kerjakan LKPD-nya untuk menguji pemahamanmu.</p>' +
+      (S.peran === "siswa" ? '<button class="tbl aksen" data-kelkpd="' + m.id + '">Kerjakan LKPD ' + esc(m.nama) + '</button>' : '') +
+    '</div>';
+
+  $("#kembali").addEventListener("click", () => {
+    materiBuka = "";
+    $("#detail-materi").hidden = true;
+    $("#daftar-materi").hidden = false;
+    gambarTabSemester(); gambarRak();
+    window.scrollTo({top:0});
+  });
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-kelkpd]"); if(!b) return;
+  $("#lk-materi").value = b.dataset.kelkpd;
+  gambarLkpd();
+  buka("lkpd");
+});
+
+/* ================= pilihan materi pada menu lain ================= */
+function opsiMateri(kosongTeks){
+  return (kosongTeks ? '<option value="">' + kosongTeks + '</option>' : "") +
+    SEMESTER.map(s => '<optgroup label="' + s.nama + '">' +
+      MATERI.filter(m => m.sem === s.no).map(m => '<option value="' + m.id + '">' + esc(m.nama) + '</option>').join("") +
+      '</optgroup>').join("");
+}
+
+function isiPilihanMateri(){
+  $("#ab-materi").innerHTML = opsiMateri();
+  $("#lk-materi").innerHTML = opsiMateri();
+  $("#k-materi").innerHTML  = opsiMateri();
+  $("#r-materi").innerHTML  = opsiMateri("Semua materi");
+  gambarLkpd();
+}
+
+/* ================= papan pengumuman ================= */
+function gambarPapan(){
+  const t = (S.konten.pengumuman || "").trim();
+  $("#papan").hidden = !t;
+  $("#isi-papan").textContent = t;
+}
+
+/* ================= tarik konten ================= */
+async function tarikKonten(){
+  const j = await ambilServer("aksi=konten&kode=" + encodeURIComponent(S.kodeKelas));
+  if(j.ok && j.isi){
+    try{
+      const isi = JSON.parse(j.isi);
+      S.konten.pengumuman = isi.pengumuman || "";
+      MATERI.forEach(m => {
+        if(isi.materi && isi.materi[m.id]) S.konten.materi[m.id] = isi.materi[m.id];
+      });
+      simpanLokal();
+    }catch(e){}
+  }
+  S.sudahTarikGambar = {};
+  gambarPapan();
+  return j.ok;
+}
+
+/* ================= absensi ================= */
+$("#ab-kirim").addEventListener("click", async () => {
+  const p = $("#ab-pesan"), tombol = $("#ab-kirim");
+  const m = cariMateri($("#ab-materi").value);
+  if(!m) return kabar(p,"Pilih materi hari ini lebih dulu.","gagal");
+  tombol.disabled = true;
+  kabar(p,"Mengirim…","info");
+  const j = await kirimServer({aksi:"absen", kodeKelas:S.kodeKelas, nama:S.nama, kelas:S.kelas,
+                               materi:m.nama, semester:"Semester " + m.sem,
+                               ket:$("#ab-ket").value, catatan:$("#ab-catatan").value.trim()});
+  if(j.ok){
+    kabar(p,"Absensi tercatat: " + S.nama + " (" + S.kelas + ") — materi " + m.nama + ".","ok");
+    $("#ab-catatan").value = "";
+  } else kabar(p, j.pesan || "Absensi gagal dikirim. Coba lagi.","gagal");
+  tombol.disabled = false;
+});
+
+/* ================= LKPD ================= */
+$("#lk-materi").addEventListener("change", gambarLkpd);
+
+function gambarLkpd(){
+  const m = cariMateri($("#lk-materi").value);
+  if(!m){ $("#isi-lkpd").innerHTML = ""; return; }
+  $("#isi-lkpd").innerHTML =
+    '<div class="kartu"><span class="cap">Semester ' + m.sem + ' · ' + esc(m.rumpun) + '</span>' +
+      '<h3>' + m.ikon + ' LKPD ' + esc(m.nama) + '</h3>' +
+      '<p class="mini"><b>Tujuan:</b> ' + esc(m.tujuan) + '</p></div>' +
+
+    '<div class="kartu"><h3>Bagian A · Pilihan ganda</h3>' +
+      m.soal.map((s,i) =>
+        '<div class="soal"><p>' + (i+1) + '. ' + esc(s.t) + '</p>' +
+        s.p.map((o,j) => '<label class="pil"><input type="radio" name="pg' + i + '" value="' + j + '"><span>' +
+                          String.fromCharCode(97+j) + '. ' + esc(o) + '</span></label>').join("") +
+        '</div>').join("") +
+    '</div>' +
+
+    '<div class="kartu"><h3>Bagian B · Uraian</h3>' +
+      m.uraian.map((u,i) => '<div class="soal"><p>' + (i+1) + '. ' + esc(u) + '</p><textarea id="u' + i + '"></textarea></div>').join("") +
+    '</div>' +
+
+    '<div class="kartu"><h3>Bagian C · Penilaian diri</h3>' +
+      CEKLIS.map((c,i) => '<label class="cek"><input type="checkbox" id="c' + i + '"> ' + esc(c) + '</label>').join("") +
+      '<label for="refleksi">Bagian yang masih sulit bagimu, dan alasannya</label>' +
+      '<textarea id="refleksi"></textarea>' +
+      '<button class="tbl aksen" id="lk-kirim">Kirim LKPD</button>' +
+      '<button class="tbl sunyi nocetak" id="lk-cetak">Cetak</button>' +
+      '<div class="pesan" id="lk-pesan" role="status"></div>' +
+    '</div>';
+
+  $("#lk-cetak").addEventListener("click", () => window.print());
+  $("#lk-kirim").addEventListener("click", () => kirimLkpd(m));
+}
+
+async function kirimLkpd(m){
+  const p = $("#lk-pesan"), tombol = $("#lk-kirim");
+  const jawab = m.soal.map((_,i) => {
+    const r = document.querySelector("input[name=pg" + i + "]:checked");
+    return r ? Number(r.value) : null;
+  });
+  const kosong = jawab.findIndex(x => x === null);
+  if(kosong > -1) return kabar(p,"Soal pilihan ganda nomor " + (kosong+1) + " belum dijawab.","gagal");
+
+  const benar = jawab.filter((j,i) => j === m.soal[i].k).length;
+  const nilai = Math.round(benar / m.soal.length * 100);
+  const ceklis = CEKLIS.map((_,i) => $("#c" + i).checked).filter(Boolean).length;
+
+  tombol.disabled = true;
+  kabar(p,"Mengirim…","info");
+  const j = await kirimServer({
+    aksi:"lkpd", kodeKelas:S.kodeKelas, nama:S.nama, kelas:S.kelas,
+    materi:m.nama, semester:"Semester " + m.sem,
+    nilai, benar, total:m.soal.length,
+    ceklis: ceklis + "/" + CEKLIS.length,
+    jawab: jawab.map(x => String.fromCharCode(97 + x)).join(" "),
+    uraian: m.uraian.map((_,i) => $("#u" + i).value.trim()),
+    refleksi: $("#refleksi").value.trim()
+  });
+  if(j.ok) kabar(p,"LKPD " + m.nama + " terkirim. Pilihan ganda benar " + benar + " dari " + m.soal.length +
+                   " — nilai " + nilai + ". Bagian uraian diperiksa guru.","ok");
+  else kabar(p, j.pesan || "LKPD gagal dikirim. Coba lagi.","gagal");
+  tombol.disabled = false;
+}
+
+/* ================= kelola konten (guru) ================= */
+$("#k-materi").addEventListener("change", isiFormKonten);
+
+function isiFormKonten(){
+  $("#k-pengumuman").value = S.konten.pengumuman || "";
+  const m = cariMateri($("#k-materi").value);
+  if(!m){ $("#atur-konten").innerHTML = ""; return; }
+  const k = S.konten.materi[m.id] || {};
+  $("#atur-konten").innerHTML =
+    '<div class="kartu"><span class="cap">Semester ' + m.sem + '</span><h3>' + m.ikon + ' ' + esc(m.nama) + '</h3>' +
+    '<label for="kv">Tautan video YouTube</label>' +
+    '<input type="text" id="kv" value="' + esc(k.video || "") + '" placeholder="https://youtu.be/...">' +
+    '<label for="kc">Catatan materi tambahan</label>' +
+    '<textarea id="kc" placeholder="Penjelasan tambahan yang muncul di halaman materi">' + esc(k.catatan || "") + '</textarea>' +
+    '<label for="kg">Gambar peraga dari galeri (boleh lebih dari satu)</label>' +
+    '<input type="file" id="kg" accept="image/*" multiple>' +
+    '<div id="pratinjau" class="galeri"></div>' +
+    '<button class="tbl sunyi kecil" id="hapus-gambar">Hapus gambar materi ini</button>' +
+    '</div>';
+  muatGambarGuru(m.id);
+  $("#kg").addEventListener("change", e => tambahGambar(m.id, e.target));
+  $("#hapus-gambar").addEventListener("click", () => {
+    S.gambar[m.id] = [];
+    pratinjau(m.id);
+    kabar($("#konten-pesan"),"Gambar dihapus dari perangkat ini. Tekan Terbitkan agar terhapus juga di murid.","info");
+  });
+}
+
+async function muatGambarGuru(id){
+  pratinjau(id);
+  if(S.sudahTarikGambar[id]) return;
+  const j = await ambilServer("aksi=gambar&kode=" + encodeURIComponent(S.kodeKelas) + "&materi=" + id);
+  if(j.ok){ S.gambar[id] = j.gambar || []; S.sudahTarikGambar[id] = true; pratinjau(id); }
+}
+
+function pratinjau(id){
+  const w = $("#pratinjau"); if(!w) return;
+  const f = S.gambar[id] || [];
+  w.innerHTML = f.length ? f.map(x => '<img src="' + x + '" alt="">').join("")
+                         : '<div class="kosong">Belum ada gambar.</div>';
+}
+
+function ringkasGambar(file){
+  return new Promise((selesai, gagal) => {
+    const fr = new FileReader();
+    fr.onerror = () => gagal(new Error("gagal membaca berkas"));
+    fr.onload = () => {
+      const img = new Image();
+      img.onerror = () => gagal(new Error("berkas bukan gambar"));
+      img.onload = () => {
+        const maks = 900;
+        const skala = Math.min(1, maks / Math.max(img.width, img.height));
+        const c = document.createElement("canvas");
+        c.width = Math.round(img.width * skala);
+        c.height = Math.round(img.height * skala);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        selesai(c.toDataURL("image/jpeg", 0.72));
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+async function tambahGambar(id, inp){
+  const p = $("#konten-pesan");
+  kabar(p,"Memproses gambar…","info");
+  try{
+    for(const f of Array.from(inp.files).slice(0,4)){
+      S.gambar[id].push(await ringkasGambar(f));
+    }
+    if(S.gambar[id].length > 4) S.gambar[id] = S.gambar[id].slice(-4);
+    pratinjau(id);
+    kabar(p,"Gambar siap. Tekan Terbitkan materi ini agar tersimpan dan terlihat murid.","ok");
+  }catch(err){ kabar(p,"Gagal memproses gambar: " + err.message,"gagal"); }
+  inp.value = "";
+}
+
+$("#tarik-konten").addEventListener("click", async () => {
+  kabar($("#konten-pesan"),"Menarik dari server…","info");
+  await tarikKonten();
+  isiFormKonten();
+  kabar($("#konten-pesan"),"Konten terbaru dari spreadsheet sudah dimuat.","ok");
+});
+
+$("#terbitkan").addEventListener("click", async () => {
+  const p = $("#konten-pesan"), tombol = $("#terbitkan");
+  const m = cariMateri($("#k-materi").value);
+  if(!m) return kabar(p,"Pilih materi lebih dulu.","gagal");
+
+  S.konten.pengumuman = $("#k-pengumuman").value.trim();
+  S.konten.materi[m.id] = { video:$("#kv").value.trim(), catatan:$("#kc").value.trim() };
+  simpanLokal();
+
+  tombol.disabled = true;
+  const versi = Date.now();
+  kabar(p,"Mengirim teks materi…","info");
+  const j = await kirimServer({aksi:"konten", kodeKelas:S.kodeKelas, kodeGuru:S.kodeGuru, versi,
+                               isi:JSON.stringify({pengumuman:S.konten.pengumuman, materi:S.konten.materi})});
+  if(!j.ok){ kabar(p, j.pesan || "Gagal mengirim materi.","gagal"); tombol.disabled = false; return; }
+
+  const j0 = await kirimServer({aksi:"gambarmulai", kodeKelas:S.kodeKelas, kodeGuru:S.kodeGuru, materi:m.id, versi});
+  if(!j0.ok){ kabar(p, j0.pesan || "Gagal menyiapkan pengiriman gambar.","gagal"); tombol.disabled = false; return; }
+
+  const daftar = S.gambar[m.id] || [];
+  for(let i = 0; i < daftar.length; i++){
+    kabar(p,"Mengirim gambar " + (i+1) + " dari " + daftar.length + "…","info");
+    const jg = await kirimServer({aksi:"gambar", kodeKelas:S.kodeKelas, kodeGuru:S.kodeGuru,
+                                  materi:m.id, idx:i, versi, isi:daftar[i]});
+    if(!jg.ok){ kabar(p,"Gagal mengirim gambar ke-" + (i+1) + ". " + (jg.pesan || ""),"gagal"); tombol.disabled = false; return; }
+  }
+  gambarPapan();
+  kabar(p,"Materi " + m.nama + " sudah terbit dengan " + daftar.length + " gambar. Murid melihatnya saat membuka aplikasi.","ok");
+  tombol.disabled = false;
+});
+
+/* ================= rekap ================= */
+const rekap = {absen:null, lkpd:null};
+
+document.addEventListener("click", e => {
+  const m = e.target.closest("[data-muat]"); if(m) return muatRekap(m.dataset.muat);
+  const u = e.target.closest("[data-unduh]"); if(u) return unduhCSV(u.dataset.unduh);
+});
+
+async function muatRekap(jenis){
+  const w = $(jenis === "absen" ? "#tabel-absen" : "#tabel-lkpd");
+  w.innerHTML = '<p class="mini">Memuat dari spreadsheet…</p>';
+  const pilih = cariMateri($("#r-materi").value);
+  const aksi = jenis === "absen" ? "daftarabsen" : "daftarlkpd";
+  const j = await ambilServer(aksi + "&kode=" + encodeURIComponent(S.kodeKelas) +
+                              "&guru=" + encodeURIComponent(S.kodeGuru) +
+                              (pilih ? "&materi=" + encodeURIComponent(pilih.nama) : ""));
+  if(!j.ok){ w.innerHTML = '<p class="mini">Gagal memuat: ' + esc(j.pesan || "") + '</p>'; return; }
+  rekap[jenis] = j;
+  if(!j.baris.length){ w.innerHTML = '<p class="mini">Belum ada data untuk pilihan ini.</p>'; return; }
+  w.innerHTML = '<p class="mini">' + j.baris.length + ' data · ' + tanggalID(new Date()) + '</p><table><tr>' +
+    j.kolom.map(k => '<th>' + esc(k) + '</th>').join("") + '</tr>' +
+    j.baris.map(b => '<tr>' + b.map((s,i) =>
+      '<td' + (j.kolom[i] === "Nilai PG" ? ' class="angka"' : "") + '>' + esc(s) + '</td>').join("") + '</tr>').join("") + '</table>';
+}
+
+function unduhCSV(jenis){
+  const j = rekap[jenis];
+  if(!j || !j.baris.length) return;
+  const isi = [j.kolom].concat(j.baris)
+    .map(r => r.map(s => '"' + String(s == null ? "" : s).replace(/"/g,'""') + '"').join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["\ufeff" + isi], {type:"text/csv;charset=utf-8"}));
+  a.download = "sipjok-" + jenis + "-" + S.kodeKelas + ".csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ================= pengaturan ================= */
+function infoSambungan(){
+  $("#info-sambungan").textContent = "Server: " + (S.server || "belum diisi") + "\nKode kelas: " + (S.kodeKelas || "-");
+}
+
+$("#uji").addEventListener("click", async () => {
+  lampu("","Memeriksa…");
+  const j = await ambilServer("aksi=cek&kode=" + encodeURIComponent(S.kodeKelas) + "&guru=" + encodeURIComponent(S.kodeGuru));
+  if(j.ok) lampu("hidup","Tersambung · kode cocok");
+  else lampu("mati", j.pesan ? "Gagal: " + j.pesan : "Kode tidak cocok");
+});
+
+function lampu(keadaan, teks){
+  const l = $("#lampu"); if(!l) return;
+  l.className = "lampu " + keadaan;
+  $("#lampu-teks").textContent = teks;
+}
+
+function tampilkanTautan(){
+  const w = $("#isi-tautan"); if(!w) return;
+  if(location.protocol === "file:"){
+    w.innerHTML = '<div class="pesan gagal" style="display:block">Aplikasi sedang dibuka langsung dari penyimpanan perangkat, jadi tautannya belum bisa dibagikan. Unggah dulu berkasnya ke GitHub Pages atau Netlify Drop.</div>';
+    return;
+  }
+  const t = location.origin + location.pathname + "?s=" + encodeURIComponent(S.server) + "&k=" + encodeURIComponent(S.kodeKelas);
+  w.innerHTML = '<div class="kode">' + esc(t) + '</div><button class="tbl aksen kecil" id="salin-tautan">Salin tautan</button>';
+  $("#salin-tautan").addEventListener("click", () => {
+    const b = $("#salin-tautan");
+    navigator.clipboard.writeText(t).then(
+      () => { b.textContent = "Tersalin"; setTimeout(() => b.textContent = "Salin tautan", 1800); },
+      () => { b.textContent = "Salin manual dari kotak di atas"; });
+  });
+}
+
+$("#keluar").addEventListener("click", () => {
+  try{ localStorage.removeItem("sipjok2"); }catch(e){}
+  location.href = location.origin + location.pathname;
+});
+
+/* ================= mulai ================= */
+(function(){
+  muatLokal();
+  const q = new URLSearchParams(location.search);
+  const s = q.get("s"), k = q.get("k");
+  if(s && k){
+    $("#s-server").value = s;
+    $("#s-kode").value = k;
+    $("#masuk-siswa").hidden = false;
+    if(S.peran === "guru") S.peran = "";
+    if(S.nama) $("#s-nama").value = S.nama;
+    if(S.kelas) $("#s-kelas").value = S.kelas;
+    S.server = s; S.kodeKelas = k;
+  }
+  if(S.peran && S.server && S.kodeKelas && (S.peran === "guru" || S.nama)){
+    bukaAplikasi();
+    tarikKonten();
+    return;
+  }
+  if(S.server){
+    $("#s-server").value = S.server;
+    $("#g-server").value = S.server;
+    $("#g-kode").value = S.kodeKelas || "";
+  }
+})();
+</script>
+</body>
+</html>
